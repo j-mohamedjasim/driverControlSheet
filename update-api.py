@@ -7,6 +7,11 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 REPO_NAME = os.environ.get("REPO_NAME")
 FILE_PATH = "data.js"
 
+print("TOKEN:", GITHUB_TOKEN)
+print("REPO:", REPO_NAME)
+print("FILE:", FILE_PATH)
+
+
 PORT = int(os.environ.get("PORT", 8000))
 
 class handler(BaseHTTPRequestHandler):
