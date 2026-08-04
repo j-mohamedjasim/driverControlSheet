@@ -107,7 +107,7 @@ const submitChangesCheck = async () => {
 
     try {
         const today = new Date().toISOString().split('T')[0];
-        const response = await fetch('https://driver-control-sheet-nhwcq5hrh-control-sheet.vercel.app', {
+        const response = await fetch('https://control-sheet.vercel.app/api/update-record', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
