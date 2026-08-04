@@ -106,6 +106,7 @@ const submitChangesCheck = async () => {
     }
 
     try {
+        const today = new Date().toISOString().split('T')[0];
         const response = await fetch('https://your-project.vercel.app/api/update-record', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
