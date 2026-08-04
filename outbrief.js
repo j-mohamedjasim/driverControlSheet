@@ -53,7 +53,6 @@ function getDriverInput() {
         document.getElementById('bulk6').value = result.bulkLeftP6;
 
         if (result.isSigned !== '') {
-            document.getElementById('submitButton').disabled = true;
             document.getElementById('section-h1-signed').innerHTML = "✅ Approved by: " + result.isSigned;
             document.getElementById('section-h1-signed').style.color = "green";
         }
@@ -64,7 +63,7 @@ function getDriverInput() {
 
 getDriverInput();
 
-const submitChangesCheck = () => {
+const submitChangesCheck = async () => {
     const loca = urlParams.get('loc');
     const result = findItems(routeNumber, loca);
 
@@ -104,6 +103,41 @@ const submitChangesCheck = () => {
     if (!hasChanges) {
         alert('No changes detected. Please make changes before submitting.');
         return;
+    }
+
+    try {
+        const response = await fetch('https://your-project.vercel.app/api/update-record', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                date: today,
+                location: loca,
+                route: routeNumber,
+                fields: {
+                    leftInBayP1: checkBayP1,
+                    leftInBayR1: checkBayR1,
+                    leftInBayP2: checkBayP2,
+                    leftInBayR2: checkBayR2,
+                    leftInBayP3: checkBayP3,
+                    leftInBayR3: checkBayR3,
+                    bulkLeftP1: checkBulkP1,
+                    bulkLeftP2: checkBulkP2,
+                    bulkLeftP3: checkBulkP3,
+                    bulkLeftP4: checkBulkP4,
+                    bulkLeftP5: checkBulkP5,
+                    bulkLeftP6: checkBulkP6
+                }
+            })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert('Changes saved successfully!');
+        } else {
+            alert('Failed: ' + data.error);
+        }
+    } catch (error) {
+        alert('Network error: ' + error.message);
     }
 
     // TODO: actual submission logic goes here (e.g. sending updated values to your server/GitHub)
