@@ -21,7 +21,7 @@ const driverRecords = {
         bulkLeftP4: '',
         bulkLeftP5: '',
         bulkLeftP6: '',
-        isSigned: 'Andy',
+        isSigned: 'Andy'
       },
       
     }
