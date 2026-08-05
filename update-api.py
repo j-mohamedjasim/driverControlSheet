@@ -11,6 +11,9 @@ print("TOKEN:", GITHUB_TOKEN)
 print("REPO:", REPO_NAME)
 print("FILE:", FILE_PATH)
 
+import sys
+sys.stdout.flush()
+
 
 PORT = int(os.environ.get("PORT", 8000))
 
