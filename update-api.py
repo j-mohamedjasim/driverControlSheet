@@ -4,7 +4,7 @@ import json
 import os
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
-REPO_NAME = g.get_repo("j-mohamedjasim/driverControlSheet")
+REPO_NAME = os.environ.get("REPO_NAME")
 FILE_PATH = "data.js"
 
 print("TOKEN:", GITHUB_TOKEN)
