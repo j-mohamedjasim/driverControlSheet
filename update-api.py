@@ -42,8 +42,8 @@ class handler(BaseHTTPRequestHandler):
             json_text = current_text.split("=", 1)[1].strip()
             if json_text.endswith(";"):
                 json_text = json_text[:-1]
-            import ast
-            driver_records = ast.literal_eval(json_text)
+            import js2py
+            driver_records = js2py.eval_js(json_text)
 
             if date not in driver_records:
                 driver_records[date] = {}
