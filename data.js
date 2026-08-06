@@ -12,7 +12,7 @@ const driverRecords = {
         "leftInBayP1": "RM139BY",
         "leftInBayR1": "3X check",
         "leftInBayP2": "RM96FS",
-        "leftInBayR2": "3X not in",
+        "leftInBayR2": "3X",
         "leftInBayP3": "",
         "leftInBayR3": "",
         "bulkLeftP1": "",
