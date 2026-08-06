@@ -10,7 +10,7 @@ const driverRecords = {
         "requestedClear": "",
         "isTransferred": "",
         "leftInBayP1": "RM139BY",
-        "leftInBayR1": "3X check",
+        "leftInBayR1": "3X check a",
         "leftInBayP2": "",
         "leftInBayR2": "",
         "leftInBayP3": "",
