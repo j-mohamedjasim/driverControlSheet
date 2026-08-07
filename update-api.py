@@ -12,6 +12,36 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 def get_db():
     return psycopg2.connect(os.getenv("DATABASE_URL"))
 
+@app.route("/get-records", methods=["POST"])
+def get_records():
+    data = request.json
+    date = data["date"]
+    loc = data["loc"]
+    route = data["route"]
+
+    conn = psycopg2.connect(DATABASE_URL)
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT *
+        FROM driver_records
+        WHERE date = %s AND loc = %s AND route = %s
+        LIMIT 1
+    """, (date, loc, route))
+
+    row = cur.fetchone()
+
+    if not row:
+        return jsonify({"error": "not found"}), 404
+
+    columns = [desc[0] for desc in cur.description]
+
+    cur.close()
+    conn.close()
+
+    return jsonify({"columns": columns, "row": row})
+
+
 
 # -----------------------------
 # SELECT RECORD
