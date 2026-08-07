@@ -49,7 +49,7 @@ function showDriverInfo() {
             document.getElementById("message-to-r2c").style.color = "green";
         }
     } else {
-        drivername.innerHTML = 'No record found. Please contact outbrief.';
+        driverName.innerHTML = 'No record found. Please contact outbrief.';
         pScanner.innerHTML = '';
         pPrinter.innerHTML = '';
         pSpare.innerHTML = '';
