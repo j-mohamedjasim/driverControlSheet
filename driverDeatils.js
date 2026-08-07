@@ -40,40 +40,33 @@ async function findDriver(routeNumber, loca) {
     return record;
 }
 
-function showDriverInfo() {
+async function showDriverInfo() {
     const rNumber = document.getElementById("route").value;
     const loca = document.getElementById("location").value.toUpperCase();
-    const result = findDriver(rNumber, loca);
-    console.log(result);
 
-    if (loca === '' || rNumber === '') {
-        alert('Please enter both a location and a route number.');
+    if (!loca || !rNumber) {
+        alert("Please enter both a location and a route number.");
         return;
     }
 
-    if (result) {        
-        console.log("Result object:", result);
+    const result = await findDriver(rNumber, loca);
+    console.log("Result:", result);
 
-        driverName.innerHTML = 'Driver: ' + result.name;
-        pScanner.innerHTML = 'Scanner: ' + result.scanner;
-        pPrinter.innerHTML = 'Printer: 🖨 ' + result.printer;
-        pSpare.innerHTML = 'Spare Battery: 🔋 ' + result.sparebattery;
-        pCount.innerHTML = 'Count: ' + result.count;
-        
-        outbriefLink.href = `outbrief.html?route=${rNumber}&loc=${loca}`;
-        
-        if (result.isTransferred === 'Yes') {
-            document.getElementById("req2clear").disabled = true;
-            document.getElementById("message-to-r2c").innerHTML = "Request to Clear has already been sent for this driver.";
-            document.getElementById("message-to-r2c").style.color = "green";
-        }
-    } else {
-        driverName.innerHTML = 'No record found. Please contact outbrief.';
-        pScanner.innerHTML = '';
-        pPrinter.innerHTML = '';
-        pSpare.innerHTML = '';
-        pCount.innerHTML = '';
+    if (!result || result.error) {
+        driverName.innerHTML = "No record found. Please contact outbrief.";
+        pScanner.innerHTML = "";
+        pPrinter.innerHTML = "";
+        pSpare.innerHTML = "";
+        pCount.innerHTML = "";
+        return;
     }
+
+    driverName.innerHTML = "Driver: " + result.name;
+    pScanner.innerHTML = "Scanner: " + result.scanner;
+    pPrinter.innerHTML = "Printer: 🖨 " + result.printer;
+    pSpare.innerHTML = "Spare Battery: 🔋 " + result.sparebattery;
+    pCount.innerHTML = "Count: " + result.count;
 }
+
 
 document.getElementById("showButton").addEventListener("click", showDriverInfo);
