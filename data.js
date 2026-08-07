@@ -27,7 +27,7 @@ const driverRecords = {
   }
 };
 
-driverRecords["2026-08-07"]["BBSA"]["101"] = {"name" = "Alex",
+driverRecords["2026-08-07"]["BBSA"]["101"] = {"name": "Alex",
                                               "scanner": "Yes",
                                               "printer": "Yes",
                                               "sparebattery": "Yes",
