@@ -4,38 +4,48 @@ const routeNumber = urlParams.get('route');
 document.getElementById('route-number').innerHTML = 'Route Number: ' + (routeNumber || 'Please go back to previous page and check your portals first.');
 document.getElementById('location').innerHTML = 'Location: ' + (urlParams.get('loc') || 'Please go back to previous page and check your portals first.');
 
-function findItems(routeNumber, loca) {
+async function findItems(routeNumber, loca) {
     const today = new Date().toISOString().split('T')[0];
-    const dateData = driverRecords[today];
-    if (!dateData) {
-        return null;
+
+    const response = await fetch("https://drivercontrolsheet.onrender.com/get-record", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            date: today,
+            loc: loca,
+            route: routeNumber
+        })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+        const row = data.row;
+
+        return {
+            leftInBayP1: row[11],
+            leftInBayR1: row[12],
+            leftInBayP2: row[13],
+            leftInBayR2: row[14],
+            leftInBayP3: row[15],
+            leftInBayR3: row[16],
+            bulkLeftP1: row[17],
+            bulkLeftP2: row[18],
+            bulkLeftP3: row[19],
+            bulkLeftP4: row[20],
+            bulkLeftP5: row[21],
+            bulkLeftP6: row[22],
+            isSigned: row[23]
+        };
     }
-    const locationData = dateData[loca];
-    if (!locationData) {
-        return null;
-    }
-    const routeData = locationData[routeNumber];
-    return routeData || null;
+
+    return null;
 }
 
-function getDriverInput() {
+async function getDriverInput() {
     const loca = urlParams.get('loc');
-    const findDriversLeftInBay = (routeNumber, loca) => {
-        const today = new Date().toISOString().split('T')[0];
-        const dateData = driverRecords[today];
-        if (!dateData) {
-            return null;
-        }
-        const locationData = dateData[loca];
-        if (!locationData) {
-            return null;
-        }
-        const routeData = locationData[routeNumber];
-        return routeData || null;
-    
-    };
+    const routeNumber = urlParams.get('route');
 
-    const result = findDriversLeftInBay(routeNumber, loca);
+    const result = await findItems(routeNumber, loca);
 
     if (result) {
         document.getElementById('postcode1').value = result.leftInBayP1;
@@ -53,13 +63,15 @@ function getDriverInput() {
         document.getElementById('bulk6').value = result.bulkLeftP6;
 
         if (result.isSigned !== '') {
-            document.getElementById('section-h1-signed').innerHTML = "✅ Approved by: " + result.isSigned;
+            document.getElementById('section-h1-signed').innerHTML =
+                "Approved by: " + result.isSigned;
             document.getElementById('section-h1-signed').style.color = "green";
         }
     } else {
-        alert('No record found for the given route number and location. Please contact outbrief.');
+        alert('No record found for the given route number and location.');
     }
 }
+
 
 getDriverInput();
 
