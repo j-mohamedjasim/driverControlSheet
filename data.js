@@ -1,7 +1,7 @@
 const driverRecords = {
-  "2026-08-06": {
+  "2026-08-07": {
     "BBSA": {
-      "101": {
+      "102": {
         "name": "Abdullah",
         "scanner": "Yes",
         "printer": "Yes",
@@ -26,29 +26,3 @@ const driverRecords = {
     }
   }
 };
-
-driverRecords["2026-08-07"] = {};
-driverRecords["2026-08-07"]["BBSA"] = {};
-driverRecords["2026-08-07"]["BBSA"]["101"] = {};
-
-driverRecords["2026-08-07"]["BBSA"]["101"] = {"name": "Alex",
-                                              "scanner": "Yes",
-                                              "printer": "Yes",
-                                              "sparebattery": "Yes",
-                                              "count": "1",
-                                              "requestedClear": "",
-                                              "isTransferred": "",
-                                              "leftInBayP1": "",
-                                              "leftInBayR1": "",
-                                              "leftInBayP2": "",
-                                              "leftInBayR2": "",
-                                              "leftInBayP3": "",
-                                              "leftInBayR3": "",
-                                              "bulkLeftP1": "",
-                                              "bulkLeftP2": "",
-                                              "bulkLeftP3": "",
-                                              "bulkLeftP4": "",
-                                              "bulkLeftP5": "",
-                                              "bulkLeftP6": "",
-                                              "isSigned": ""
-                                             };
