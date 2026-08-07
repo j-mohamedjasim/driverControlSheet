@@ -11,17 +11,30 @@ const locationLink = document.getElementById("locationLink");
 let getRouteForOutbrief = '';
 let loc = '';
 
-function findDriver(routeNumber, loca){
-    const dateData = driverRecords[today];
-    if (!dateData) {
+async function findDriver(routeNumber, loca) {
+    const response = await fetch("https://drivercontrolsheet.onrender.com/get-record", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            date: today,
+            loc: loca,
+            route: routeNumber
+        })
+    });
+
+    if (!response.ok) {
         return null;
     }
-    const locationData = dateData[loca];
-    if (!locationData) {
-        return null;
-    }
-    const routeData = locationData[routeNumber];
-    return routeData || null;
+
+    const data = await response.json();
+
+    // Convert SQL row array → object with column names
+    const record = {};
+    data.columns.forEach((col, index) => {
+        record[col] = data.row[index];
+    });
+
+    return record;
 }
 
 function showDriverInfo() {
