@@ -1,9 +1,19 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
-from github import Github
-import json
+from flask import Flask, request, jsonify
+import psycopg2
 import os
-import ast
 
+app = Flask(__name__)
+
+# -----------------------------
+# DATABASE CONNECTION
+# -----------------------------
+def get_db():
+    return psycopg2.connect(os.getenv("DATABASE_URL"))
+
+
+# -----------------------------
+# SELECT RECORD
+# -----------------------------
 @app.route("/get-record", methods=["POST"])
 def get_record():
     body = request.json
@@ -45,6 +55,9 @@ def get_record():
     }
 
 
+# -----------------------------
+# UPDATE RECORD
+# -----------------------------
 @app.route("/update-record", methods=["POST"])
 def update_record():
     body = request.json
@@ -87,3 +100,10 @@ def update_record():
     conn.close()
 
     return {"status": "success"}
+
+
+# -----------------------------
+# RUN SERVER (Render)
+# -----------------------------
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8000)))
