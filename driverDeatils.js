@@ -50,13 +50,7 @@ function showDriverInfo() {
         return;
     }
 
-    if (result) {
-        console.log("Driver name element:", driverName);
-        console.log("Scanner element:", pScanner);
-        console.log("Printer element:", pPrinter);
-        console.log("Spare element:", pSpare);
-        console.log("Count element:", pCount);
-        
+    if (result) {        
         console.log("Result object:", result);
 
         driverName.innerHTML = 'Driver: ' + result.name;
