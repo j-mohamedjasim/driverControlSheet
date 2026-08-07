@@ -27,6 +27,10 @@ const driverRecords = {
   }
 };
 
+driverRecords["2026-08-07"] = {};
+driverRecords["2026-08-07"]["BBSA"] = {};
+driverRecords["2026-08-07"]["BBSA"]["101"] = {};
+
 driverRecords["2026-08-07"]["BBSA"]["101"] = {"name": "Alex",
                                               "scanner": "Yes",
                                               "printer": "Yes",
@@ -47,4 +51,4 @@ driverRecords["2026-08-07"]["BBSA"]["101"] = {"name": "Alex",
                                               "bulkLeftP5": "",
                                               "bulkLeftP6": "",
                                               "isSigned": ""
-                                             }
+                                             };
