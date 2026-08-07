@@ -22,6 +22,8 @@ async function findDriver(routeNumber, loca) {
         })
     });
 
+    console.log(date, loc, route);
+
     if (!response.ok) {
         return null;
     }
@@ -41,6 +43,7 @@ function showDriverInfo() {
     const rNumber = document.getElementById("route").value;
     const loca = document.getElementById("location").value.toUpperCase();
     const result = findDriver(rNumber, loca);
+    console.log(result);
 
     if (loca === '' || rNumber === '') {
         alert('Please enter both a location and a route number.');
