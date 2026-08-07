@@ -12,7 +12,7 @@ let getRouteForOutbrief = '';
 let loc = '';
 
 async function findDriver(routeNumber, loca) {
-    const response = await fetch("https://drivercontrolsheet.onrender.com/get-record", {
+    const response = await fetch("https://drivercontrolsheet.onrender.com/get-records", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
