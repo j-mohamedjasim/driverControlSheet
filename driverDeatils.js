@@ -29,6 +29,7 @@ async function findDriver(routeNumber, loca) {
     }
 
     const data = await response.json();
+    return data;
 
     // Convert SQL row array → object with column names
     const record = {};
