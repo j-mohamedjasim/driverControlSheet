@@ -22,22 +22,12 @@ async function findDriver(routeNumber, loca) {
         })
     });
 
-    console.log(date, loc, route);
-
     if (!response.ok) {
         return null;
     }
 
     const data = await response.json();
     return data;
-
-    // Convert SQL row array → object with column names
-    const record = {};
-    data.columns.forEach((col, index) => {
-        record[col] = data.row[index];
-    });
-
-    return record;
 }
 
 async function showDriverInfo() {
@@ -53,7 +43,7 @@ async function showDriverInfo() {
     console.log("Result:", result);
 
     if (!result || result.error) {
-        driverName.innerHTML = "No record found. Please contact outbrief.";
+        driverName.innerHTML = "No record found.";
         pScanner.innerHTML = "";
         pPrinter.innerHTML = "";
         pSpare.innerHTML = "";
@@ -63,10 +53,9 @@ async function showDriverInfo() {
 
     driverName.innerHTML = "Driver: " + result.name;
     pScanner.innerHTML = "Scanner: " + result.scanner;
-    pPrinter.innerHTML = "Printer: 🖨 " + result.printer;
-    pSpare.innerHTML = "Spare Battery: 🔋 " + result.sparebattery;
+    pPrinter.innerHTML = "Printer: " + result.printer;
+    pSpare.innerHTML = "Spare Battery: " + result.sparebattery;
     pCount.innerHTML = "Count: " + result.count;
 }
-
 
 document.getElementById("showButton").addEventListener("click", showDriverInfo);
