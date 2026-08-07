@@ -4,101 +4,86 @@ import json
 import os
 import ast
 
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
-REPO_NAME = os.environ.get("REPO_NAME")
-FILE_PATH = "data.js"
+@app.route("/get-record", methods=["POST"])
+def get_record():
+    body = request.json
+    date = body["date"]
+    loc = body["loc"]
+    route = body["route"]
 
-print("TOKEN:", GITHUB_TOKEN)
-print("REPO:", REPO_NAME)
-print("FILE:", FILE_PATH)
+    conn = get_db()
+    cur = conn.cursor()
 
-import sys
-sys.stdout.flush()
+    cur.execute("""
+        SELECT *
+        FROM driver_records
+        WHERE date=%s AND loc=%s AND route=%s
+    """, (date, loc, route))
 
-PORT = int(os.environ.get("PORT", 8000))
+    row = cur.fetchone()
+    cur.close()
+    conn.close()
 
-class handler(BaseHTTPRequestHandler):
-    def do_POST(self):
-        try:
-            # Read JSON payload
-            content_length = int(self.headers["Content-Length"])
-            body = self.rfile.read(content_length)
-            payload = json.loads(body)
+    if not row:
+        return {"error": "Record not found. Please speak to debrief."}, 404
 
-            date = payload.get("date")
-            loc = payload.get("location")
-            route = payload.get("route")
-            updated_fields = payload.get("fields")
+    columns = [
+        "id", "date", "loc", "route",
+        "name", "scanner", "printer", "sparebattery", "count",
+        "requestedClear", "isTransferred",
+        "leftInBayP1", "leftInBayR1",
+        "leftInBayP2", "leftInBayR2",
+        "leftInBayP3", "leftInBayR3",
+        "bulkLeftP1", "bulkLeftP2", "bulkLeftP3",
+        "bulkLeftP4", "bulkLeftP5", "bulkLeftP6",
+        "isSigned", "created_at", "updated_at"
+    ]
 
-            if not all([date, loc, route, updated_fields]):
-                self.send_error_response(400, "Missing required data")
-                return
-
-            # Connect to GitHub
-            g = Github(GITHUB_TOKEN)
-            repo = g.get_repo(REPO_NAME)
-
-            # Read file
-            file_content = repo.get_contents(FILE_PATH)
-            current_text = file_content.decoded_content.decode("utf-8")
-
-            # Extract JS object
-            json_text = current_text.split("=", 1)[1].strip()
-            if json_text.endswith(";"):
-                json_text = json_text[:-1]
-
-            # Convert JS object → Python dict
-            driver_records = ast.literal_eval(json_text)
-
-            # Validate structure
-            if date not in driver_records:
-                driver_records[date] = {}
-            if loc not in driver_records[date]:
-                driver_records[date][loc] = {}
-            if route not in driver_records[date][loc]:
-                self.send_error_response(404, "Record not found")
-                return
-
-            # Update fields
-            driver_records[date][loc][route].update(updated_fields)
-
-            # Convert back to JS file
-            new_text = "const driverRecords = " + json.dumps(driver_records, indent=2) + ";\n"
-
-            # Push update to GitHub
-            repo.update_file(
-                path=FILE_PATH,
-                message=f"Update record: {date}/{loc}/{route}",
-                content=new_text,
-                sha=file_content.sha
-            )
-
-            # Success response
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.send_header("Access-Control-Allow-Origin", "*")
-            self.end_headers()
-            self.wfile.write(json.dumps({"success": True}).encode())
-
-        except Exception as e:
-            self.send_error_response(500, str(e))
-
-    def do_OPTIONS(self):
-        self.send_response(204)
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Methods", "POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
-        self.end_headers()
-
-    def send_error_response(self, code, message):
-        self.send_response(code)
-        self.send_header("Content-Type", "application/json")
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.end_headers()
-        self.wfile.write(json.dumps({"error": message}).encode())
+    return {
+        "columns": columns,
+        "row": row
+    }
 
 
-if __name__ == "__main__":
-    server = HTTPServer(("0.0.0.0", PORT), handler)
-    print(f"Server running on port {PORT}")
-    server.serve_forever()
+@app.route("/update-record", methods=["POST"])
+def update_record():
+    body = request.json
+    date = body["date"]
+    loc = body["location"]
+    route = body["route"]
+    f = body["fields"]
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute("""
+        UPDATE driver_records
+        SET
+            leftInBayP1=%s,
+            leftInBayR1=%s,
+            leftInBayP2=%s,
+            leftInBayR2=%s,
+            leftInBayP3=%s,
+            leftInBayR3=%s,
+            bulkLeftP1=%s,
+            bulkLeftP2=%s,
+            bulkLeftP3=%s,
+            bulkLeftP4=%s,
+            bulkLeftP5=%s,
+            bulkLeftP6=%s,
+            updated_at=NOW()
+        WHERE date=%s AND loc=%s AND route=%s
+    """, (
+        f["leftInBayP1"], f["leftInBayR1"],
+        f["leftInBayP2"], f["leftInBayR2"],
+        f["leftInBayP3"], f["leftInBayR3"],
+        f["bulkLeftP1"], f["bulkLeftP2"], f["bulkLeftP3"],
+        f["bulkLeftP4"], f["bulkLeftP5"], f["bulkLeftP6"],
+        date, loc, route
+    ))
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return {"status": "success"}
