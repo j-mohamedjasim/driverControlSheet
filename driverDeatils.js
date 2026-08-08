@@ -71,10 +71,10 @@ async function showDriverInfo() {
     } else {
         countHand = '5️⃣➕';
     }
-    
-    console.log(result.requestedClear);
 
-    if (result.requestedClear === 'Yes') {
+    console.log(result.requestedclear);
+
+    if (result.requestedclear === 'Yes') {
         document.getElementById("req2clear").disabled = true;
         document.getElementById("message-to-r2c").innerHTML = "Request to Clear has already been sent for this driver.";
         document.getElementById("message-to-r2c").style.color = "green";
