@@ -48,7 +48,7 @@ async function showDriverInfo() {
     console.log("Result:", result);
 
     if (!result || result.error) {
-        driverName.innerHTML = "No record found.";
+        driverName.innerHTML = "No record found. Please contact dispatch.";
         pScanner.innerHTML = "";
         pPrinter.innerHTML = "";
         pSpare.innerHTML = "";
@@ -70,6 +70,15 @@ async function showDriverInfo() {
         countHand = '🖐';
     } else {
         countHand = '5️⃣➕';
+    }
+
+    if (result.requestedClear === 'Yes') {
+        document.getElementById("req2clear").disabled = true;
+        document.getElementById("message-to-r2c").innerHTML = "Request to Clear has already been sent for this driver.";
+        document.getElementById("message-to-r2c").style.color = "green";
+    } else {
+        document.getElementById("req2clear").disabled = false;
+        document.getElementById("message-to-r2c").innerHTML = "";
     }
 
     driverName.innerHTML = "Driver 👨‍💼 : " + result.name;
