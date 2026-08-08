@@ -71,6 +71,8 @@ async function showDriverInfo() {
     } else {
         countHand = '5️⃣➕';
     }
+    
+    console.log(result.requestedClear);
 
     if (result.requestedClear === 'Yes') {
         document.getElementById("req2clear").disabled = true;
