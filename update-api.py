@@ -28,12 +28,10 @@ def get_records():
 
     conn = get_db()
     cur = conn.cursor()
-    cur.execute("SELECT date, loc, route FROM driver_records", ())
-    all_rows = cur.fetchall()
-    print(f"ALL ROWS IN TABLE: {all_rows}", flush=True)
 
     cur.execute("SELECT * FROM driver_records WHERE date = %s AND loc = %s AND route = %s LIMIT 1", (date, loc, route))
     row = cur.fetchone()
+    print(f"QUERY RESULT: {row!r}", flush=True)
     if not row:
         return jsonify({"error": "not found"}), 404
     columns = [desc[0] for desc in cur.description]
