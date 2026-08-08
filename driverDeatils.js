@@ -117,7 +117,7 @@ const req2clearButton = () => {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
+        if (data.status === "success") {
             document.getElementById("req2clear").disabled = true;
             document.getElementById("message-to-r2c").innerHTML = "Request to Clear has been sent successfully.";
             document.getElementById("message-to-r2c").style.color = "green";
