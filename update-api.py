@@ -19,40 +19,28 @@ CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 def get_records():
     if request.method == "OPTIONS":
         return jsonify({"status": "ok"}), 200
-
     data = request.json
     date = data["date"]
     loc = data["loc"]
     route = data["route"]
 
+    print(f"RECEIVED: date={date!r}, loc={loc!r}, route={route!r}", flush=True)
+
     conn = get_db()
     cur = conn.cursor()
+    cur.execute("SELECT date, loc, route FROM driver_records", ())
+    all_rows = cur.fetchall()
+    print(f"ALL ROWS IN TABLE: {all_rows}", flush=True)
 
     cur.execute("SELECT * FROM driver_records WHERE date = %s AND loc = %s AND route = %s LIMIT 1", (date, loc, route))
-
-    #cur.execute("""
-     #   SELECT *
-      #  FROM driver_records
-       # WHERE date = %s AND loc = %s AND route = %s
-        #LIMIT 1
-    #""", (date, loc, route))
-
     row = cur.fetchone()
-
     if not row:
         return jsonify({"error": "not found"}), 404
-
     columns = [desc[0] for desc in cur.description]
-
     cur.close()
     conn.close()
-
-    # Return object directly
     return jsonify(dict(zip(columns, row)))
-
-
-
-
+    
 # -----------------------------
 # SELECT RECORD
 # -----------------------------
