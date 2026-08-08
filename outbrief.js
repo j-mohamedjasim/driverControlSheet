@@ -5,6 +5,7 @@ document.getElementById('route-number').innerHTML = 'Route Number: ' + (routeNum
 document.getElementById('location').innerHTML = 'Location: ' + (urlParams.get('loc') || 'Please go back to previous page and check your portals first.');
 
 async function findItems(routeNumber, loca) {
+    const now = new Date();
     const today = now.getFullYear() + '-' +
               String(now.getMonth() + 1).padStart(2, '0') + '-' +
               String(now.getDate()).padStart(2, '0');
