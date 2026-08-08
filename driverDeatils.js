@@ -56,6 +56,13 @@ async function showDriverInfo() {
     pPrinter.innerHTML = "Printer: " + result.printer;
     pSpare.innerHTML = "Spare Battery: " + result.sparebattery;
     pCount.innerHTML = "Count: " + result.count;
+
+    outbriefLink.href = `outbrief.html?route=${rNumber}&loc=${loca}`;
+    if (result.isTransferred === 'Yes') {
+        document.getElementById("req2clear").disabled = true;
+        document.getElementById("message-to-r2c").innerHTML = "Request to Clear has already been sent for this driver.";
+        document.getElementById("message-to-r2c").style.color = "green";
+    }
 }
 
 document.getElementById("showButton").addEventListener("click", showDriverInfo);
