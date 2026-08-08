@@ -141,7 +141,7 @@ def request_clear():
 
     cur.execute("""
         UPDATE driver_records
-        SET requestedClear='Yes', isTransferred='No', updated_at=NOW()
+        SET requestedClear='Yes', updated_at=NOW()
         WHERE date=%s AND loc=%s AND route=%s
     """, (date, loc, route))
 
