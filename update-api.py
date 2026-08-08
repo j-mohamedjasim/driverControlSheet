@@ -12,10 +12,6 @@ CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 def get_db():
     return psycopg2.connect(os.getenv("DATABASE_URL"))
 
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-import psycopg2
-
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
@@ -29,7 +25,7 @@ def get_records():
     loc = data["loc"]
     route = data["route"]
 
-    conn = psycopg2.connect(DATABASE_URL)
+    conn = get_db()
     cur = conn.cursor()
 
     cur.execute("""
