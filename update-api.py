@@ -135,7 +135,7 @@ def update_record():
 def request_clear():
     body = request.json
     date = body["date"]
-    loc = body["location"]
+    loc = body["loc"]
     route = body["route"]
 
     conn = get_db()
