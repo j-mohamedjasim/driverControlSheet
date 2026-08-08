@@ -53,11 +53,27 @@ async function showDriverInfo() {
         return;
     }
 
-    driverName.innerHTML = "Driver: " + result.name;
+    let countHand = '';
+
+    if (result.count === '1') {
+        countHand = '☝️';
+    } else if (result.count === '2') {
+        countHand = '✌️';
+    } else if (result.count === '3') {
+        countHand = '٣';
+    } else if (result.count === '4') {
+        countHand = '٤';
+    } else if (result.count === '5') {
+        countHand = '🖐';
+    } else {
+        countHand = '5️⃣➕';
+    }
+
+    driverName.innerHTML = "Driver 👨‍💼 : " + result.name;
     pScanner.innerHTML = "Scanner: " + result.scanner;
-    pPrinter.innerHTML = "Printer: " + result.printer;
-    pSpare.innerHTML = "Spare Battery: " + result.sparebattery;
-    pCount.innerHTML = "Count: " + result.count;
+    pPrinter.innerHTML = "Printer 🖨 : " + result.printer;
+    pSpare.innerHTML = "Spare Battery 🔋 : " + result.sparebattery;
+    pCount.innerHTML = "Count " + countHand + " : " + result.count;
 
     outbriefLink.href = `outbrief.html?route=${rNumber}&loc=${loca}`;
     if (result.isTransferred === 'Yes') {
