@@ -1,5 +1,7 @@
 const today = new Date().toISOString().split('T')[0];
 
+console.log(today);
+
 const driverName = document.getElementById("name");
 const pScanner = document.getElementById("scanner");
 const pPrinter = document.getElementById("printer");
