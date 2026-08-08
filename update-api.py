@@ -28,12 +28,14 @@ def get_records():
     conn = get_db()
     cur = conn.cursor()
 
-    cur.execute("""
-        SELECT *
-        FROM driver_records
-        WHERE date = %s AND loc = %s AND route = %s
-        LIMIT 1
-    """, (date, loc, route))
+    cur.execute("SELECT * FROM driver_records WHERE date = %s AND loc = %s AND route = %s LIMIT 1", (date, loc, route))
+
+    #cur.execute("""
+     #   SELECT *
+      #  FROM driver_records
+       # WHERE date = %s AND loc = %s AND route = %s
+        #LIMIT 1
+    #""", (date, loc, route))
 
     row = cur.fetchone()
 
