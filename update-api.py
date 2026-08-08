@@ -131,6 +131,28 @@ def update_record():
 
     return {"status": "success"}
 
+@app.route("/request-clear", methods=["POST"])
+def request_clear():
+    body = request.json
+    date = body["date"]
+    loc = body["location"]
+    route = body["route"]
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute("""
+        UPDATE driver_records
+        SET requestedClear='Yes', isTransferred='No', updated_at=NOW()
+        WHERE date=%s AND loc=%s AND route=%s
+    """, (date, loc, route))
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return {"status": "success"}
+
 
 # -----------------------------
 # RUN SERVER (Render)
