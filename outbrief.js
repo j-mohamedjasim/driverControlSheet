@@ -5,7 +5,9 @@ document.getElementById('route-number').innerHTML = 'Route Number: ' + (routeNum
 document.getElementById('location').innerHTML = 'Location: ' + (urlParams.get('loc') || 'Please go back to previous page and check your portals first.');
 
 async function findItems(routeNumber, loca) {
-    const today = new Date().toISOString().split('T')[0];
+    const today = now.getFullYear() + '-' +
+              String(now.getMonth() + 1).padStart(2, '0') + '-' +
+              String(now.getDate()).padStart(2, '0');
 
     const response = await fetch("https://drivercontrolsheet.onrender.com/get-record", {
         method: "POST",
