@@ -96,3 +96,41 @@ async function showDriverInfo() {
 }
 
 document.getElementById("showButton").addEventListener("click", showDriverInfo);
+
+const req2clearButton = () => {
+    const rNumber = document.getElementById("route").value;
+    const loca = document.getElementById("location").value.toUpperCase();
+
+    if (!loca || !rNumber) {
+        alert("Please enter both a location and a route number.");
+        return;
+    }
+
+    fetch("https://drivercontrolsheet.onrender.com/request-clear", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            date: today,
+            loc: loca,
+            route: rNumber
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById("req2clear").disabled = true;
+            document.getElementById("message-to-r2c").innerHTML = "Request to Clear has been sent successfully.";
+            document.getElementById("message-to-r2c").style.color = "green";
+        } else {
+            document.getElementById("message-to-r2c").innerHTML = "Failed to send Request to Clear. Please try again.";
+            document.getElementById("message-to-r2c").style.color = "red";
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        document.getElementById("message-to-r2c").innerHTML = "An error occurred. Please try again.";
+        document.getElementById("message-to-r2c").style.color = "red";
+    });
+};
+
+document.getElementById("req2clear").addEventListener("click", req2clearButton);
