@@ -4,23 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driver's CS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
     
 </head>
 <body>
-    <section>
+    <section class="head">
         <a class="outbrief-process" id="outbriefLink" href="outbrief.html">Go To Outbrief Process</a>
     </section>
-    <section>
+    <section class="greet">
         <h1 id="date"></h1>
+        <h1 id="greeting"></h1>
+        <p id="message"></p>
     </section>
 
-    <section>
-        <input type="text" id="location" name="location" placeholder="Location">
-        <input type="text" id="route" name="routenumber" placeholder="Enter Your Route Number">
+    <section class="warning">
+        <h1 id="warning-h1"></h1>
+        <p id="warning-message"></p>
     </section>
 
-    <section>
-        <button id="showButton" type="button">Show</button><br>
+    <section class="section-driver-details">
+        <input type="text" id="location" class="location" name="location" placeholder="BBSA">
+        <input type="text" id="route" class="route" name="routenumber" placeholder="201">
+        <button id="showButton" type="button">SHOW</button><br>
+    </section>
+
+    <section class="buttons">
+        
 
         <h2 id="name"></h2>
         <h3 id="scanner"></h3>
@@ -30,8 +42,8 @@
 
     </section>
 
-    <section>
-        <button id="req2clear" type="button">Request to clear</button><br>
+    <section class="buttons">
+        <button id="req2clear" type="button">REQUEST TO CLEAR</button><br>
         <p id="message-to-r2c"></p>
 
     </section>
