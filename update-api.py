@@ -151,6 +151,31 @@ def request_clear():
 
     return {"status": "success"}
 
+@app.route("/update-aprovals", methods=["POST"])
+def updateApprovals():
+    body = request.json
+    date = body["date"]
+    loc = body["loc"]
+    route = body["route"]
+    appBy = body["appBy"]
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    fString = f"""
+            UPDATE driver_records
+            SET isSigned={appBy}, updated_at=NOW()
+            WHERE date=%s AND loc=%s AND route=%s
+        """
+
+    cur.execute(fString, date, loc, route)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return {"status": "success"}
+
 
 # -----------------------------
 # RUN SERVER (Render)
