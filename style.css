@@ -71,6 +71,17 @@ header{
     text-transform: uppercase;
 }
 
+.approve {
+    color: rgb(45, 14, 82);
+    padding: 10px;
+    width: 150px;
+    font-weight: bold;
+    border-radius: 5px;
+    border-bottom: 2px solid rgb(45, 14, 82);
+    font-family: "Stack Sans Text", sans-serif;
+    font-size: medium;
+}
+
 .basic-data {
     color: rgb(45, 14, 82);
     padding: 10px;
@@ -82,7 +93,7 @@ header{
     padding-left: 50px;
 }
 
-#showButton, #req2clear, #submitButton{
+#showButton, #req2clear, #submitButton, #submit-for-approve{
     background-color: rgb(248, 113, 3);
     color: white;
     font-family: "Stack Sans Text", sans-serif;
@@ -95,6 +106,12 @@ header{
     cursor: pointer;
 }
 
+.submit-for-approve-section {
+    margin: 10px;
+    padding: 20px;
+    padding-left: 20%;
+}
+
 .buttons {
     gap: 10px;
     margin-left: 10px;
@@ -105,7 +122,7 @@ header{
     margin-left: 20%;
 }
 
-#showButton:hover, #req2clear:hover, #submitButton:hover {
+#showButton:hover, #req2clear:hover, #submitButton:hover, #submit-for-approve:hover {
     background-color: rgb(190, 83, 41);
     color: white;
     transform: scale(1.05);
