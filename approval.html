@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supervisor Approvals</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <section class="section-driver-details">
+        <h1 id="date"></h1>
+        <input type="text" id="locationA" class="location" name="location" placeholder="BBSA">
+        <input type="text" id="routeA" class="route" name="routenumber" placeholder="201">
+        <input type="text" id="approve" class="approve" name="approve" placeholder="Approver">
+        <button id="showButton" type="button">SHOW</button><br>
+    </section>
+
+    <section class="section-baycheck">
+        <h1 class="section-h1-baycheck">Baychecks</h1>
+
+        <input type="text" class="pandr" id="postcode1" name="postcode1" placeholder="Enter Postcode">
+        <input type="text" class="pandr" id="reason1" name="reason1" placeholder="Enter Reason"><br><br><br>
+        <input type="text" class="pandr" id="postcode2" name="postcode2" placeholder="Enter Postcode">
+        <input type="text" class="pandr" id="reason2" name="reason2" placeholder="Enter Reason"><br><br><br>
+        <input type="text" class="pandr" id="postcode3" name="postcode3" placeholder="Enter Postcode">
+        <input type="text" class="pandr" id="reason3" name="reason3" placeholder="Enter Reason">
+    </section>
+
+    <section class="section-bulk">
+        <h1 class="section-h1-bulk">Bulk</h1>
+        <input type="text" class="bulksection" id="bulk1" name="bulk1" placeholder="Enter Postcode">
+        <input type="text" class="bulksection" id="bulk2" name="bulk2" placeholder="Enter Postcode"><br><br><br>
+        <input type="text" class="bulksection" id="bulk3" name="bulk3" placeholder="Enter Postcode">
+        <input type="text" class="bulksection" id="bulk4" name="bulk4" placeholder="Enter Postcode"><br><br><br>
+        <input type="text" class="bulksection" id="bulk5" name="bulk5" placeholder="Enter Postcode">
+        <input type="text" class="bulksection" id="bulk6" name="bulk6" placeholder="Enter Postcode">
+    </section>
+
+    <section class="submit-for-approve-section">
+        <button type="submit" id="submit-for-approve" class="submit-for-approve" >SUBMIT</button>
+    </section>
+
+    <script src="index.js"></script>
+    <script src="data.js"></script>
+    <script src="outbrief.js"></script>
+    <script src="approve.js"></script>
+    
+</body>
+</html>
