@@ -111,9 +111,9 @@ const approveForSubmission = async () => {
     if (!response.ok) {
         return null;
     }
-
-    const data = await response.json();
+    
     return data;
+    const data = await response.json();
 
     if (data.status === "success") {
         alert("Approval sucessfully submitted.");

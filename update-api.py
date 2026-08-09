@@ -164,11 +164,11 @@ def updateApprovals():
 
     fString = f"""
             UPDATE driver_records
-            SET isSigned={appBy}, updated_at=NOW()
+            SET isSigned=%s, updated_at=NOW()
             WHERE date=%s AND loc=%s AND route=%s
         """
 
-    cur.execute(fString, date, loc, route)
+    cur.execute(fString, (appBy, date, loc, route))
 
     conn.commit()
     cur.close()
