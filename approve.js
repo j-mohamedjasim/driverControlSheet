@@ -111,8 +111,7 @@ const approveForSubmission = async () => {
     if (!response.ok) {
         return null;
     }
-    
-    return data;
+
     const data = await response.json();
 
     if (data.status === "success") {
@@ -121,6 +120,7 @@ const approveForSubmission = async () => {
     } else {
         alert("Something went wrong.");
     }
+    return data;
 }
 
 document.getElementById("submit-for-approve").addEventListener('click', approveForSubmission);
