@@ -1,0 +1,167 @@
+.head {
+    margin: 0;
+    padding: 10px;
+    background-color: rgb(45, 14, 82);
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#outbriefLink {
+    color: white;
+    text-decoration: none;
+}
+
+#greeting {
+    font-size: 50px;
+    font-family: "Stack Sans Text", sans-serif;
+}
+
+.greet {
+    padding-left: 50px;
+    margin: 10px;
+    border: 3px solid black;
+    border-radius: 10px;
+}
+
+.roundup-section {
+    padding-left: 50px;
+    margin: 10px;
+    border: 3px solid black;
+    border-radius: 10px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(251, 250, 251);
+    font-family: "Stack Sans Text", sans-serif;
+}
+
+header{
+    margin: 0;
+    padding: 0px;
+    background-color: rgb(45, 14, 82);
+}
+
+#date {
+    color: rgb(45, 14, 82);
+    padding: 10px;
+}
+
+.section-driver-details {
+    padding: 60px;
+    padding-left: 120px;
+    gap: 30px;
+    grid-template-columns: 1fr 1fr;
+    border: 3px solid black;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.location, .route {
+    color: rgb(45, 14, 82);
+    padding: 10px;
+    width: 50px;
+    font-weight: bold;
+    border-radius: 5px;
+    border-bottom: 2px solid rgb(45, 14, 82);
+    font-family: "Stack Sans Text", sans-serif;
+    font-size: medium;
+    text-transform: uppercase;
+}
+
+.basic-data {
+    color: rgb(45, 14, 82);
+    padding: 10px;
+    font-weight: bold;
+    font-family: "Stack Sans Text", sans-serif;
+    margin: 10px;
+    border: 3px solid black;
+    border-radius: 5px;
+    padding-left: 50px;
+}
+
+#showButton, #req2clear, #submitButton{
+    background-color: rgb(248, 113, 3);
+    color: white;
+    font-family: "Stack Sans Text", sans-serif;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.buttons {
+    gap: 10px;
+    margin-left: 10px;
+    padding-left: 20%;
+}
+
+#submitButton {
+    margin-left: 20%;
+}
+
+#showButton:hover, #req2clear:hover, #submitButton:hover {
+    background-color: rgb(190, 83, 41);
+    color: white;
+    transform: scale(1.05);
+}
+
+#req2clear:disabled {
+    background-color: grey;
+    color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+#req2clear:disabled:hover {
+    background-color: grey;
+    color: #ccc;
+}
+
+.section-baycheck, .section-bulk {
+    padding: 50px;
+    gap: 30px;
+    grid-template-columns: 1fr 1fr;
+    margin: 10px;
+    border: 3px solid black;
+    border-radius: 5px;
+}
+
+.bulksection {
+    text-transform: uppercase;
+}
+
+.pandr, .bulksection {
+    color: rgb(45, 14, 82);
+    padding: 10px;
+    font-weight: bold;
+    font-family: "Stack Sans Text", sans-serif;
+    width: 300px;
+    border-bottom: 2px solid rgb(8, 4, 12);
+    font-size: medium;
+}
+
+.section-h1-baycheck, .section-h1-bulk {
+    padding-left: 20%;
+    font-weight: bold;
+    color: rgb(45, 14, 82);
+    font-family: "Stack Sans Text", sans-serif;
+}
+
+.signed-section {
+    margin-left: 15%;
+}
+
+.warning {
+    margin: 10px;
+    border: 3px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    background-color: yellow;
+}
