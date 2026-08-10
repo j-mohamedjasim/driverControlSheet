@@ -174,23 +174,6 @@ def updateApprovals():
 
     return {"status": "success"}
 
-@app.route("/cleanup-today", methods=["POST"])
-def cleanup_today():
-    conn = get_db()
-    cur = conn.cursor()
-
-    cur.execute("""
-        DELETE FROM driver_records
-        WHERE date <> CURRENT_DATE
-    """)
-
-    conn.commit()
-    cur.close()
-    conn.close()
-
-    return {"status": "deleted all except today"}
-
-
 # -----------------------------
 # RUN SERVER (Render)
 # -----------------------------
