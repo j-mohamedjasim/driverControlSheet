@@ -176,7 +176,7 @@ def updateApprovals():
 
 @app.route("/cleanup-today", methods=["POST"])
 def cleanup_today():
-    conn = psycopg2.connect(DATABASE_URL)
+    conn = get_db()
     cur = conn.cursor()
 
     cur.execute("""
