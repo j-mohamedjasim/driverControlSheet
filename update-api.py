@@ -24,14 +24,12 @@ def get_records():
     loc = data["loc"]
     route = data["route"]
 
-    print(f"RECEIVED: date={date!r}, loc={loc!r}, route={route!r}", flush=True)
-
     conn = get_db()
     cur = conn.cursor()
 
     cur.execute("SELECT * FROM driver_records WHERE date = %s AND loc = %s AND route = %s LIMIT 1", (date, loc, route))
     row = cur.fetchone()
-    print(f"QUERY RESULT: {row!r}", flush=True)
+
     if not row:
         return jsonify({"error": "not found"}), 404
     columns = [desc[0] for desc in cur.description]
@@ -175,6 +173,22 @@ def updateApprovals():
     conn.close()
 
     return {"status": "success"}
+
+@app.route("/cleanup-today", methods=["POST"])
+def cleanup_today():
+    conn = psycopg2.connect(DATABASE_URL)
+    cur = conn.cursor()
+
+    cur.execute("""
+        DELETE FROM driver_records
+        WHERE date <> CURRENT_DATE
+    """)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return {"status": "deleted all except today"}
 
 
 # -----------------------------
