@@ -84,6 +84,8 @@ async function showDriverInfo() {
         countHand = '٤';
     } else if (result.count === '5') {
         countHand = '🖐';
+    } else if (result.count === '0'){
+        countHand = '0️⃣';
     } else {
         countHand = '5️⃣➕';
     }
