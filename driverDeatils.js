@@ -15,12 +15,19 @@ const locationLink = document.getElementById("locationLink");
 
 
 const warningMessageToShow = () => {
+    const loca = document.getElementById("location").value.toUpperCase();
     const warningh1 = document.getElementById("warning-h1").innerHTML = "⚠️ Important Message";
     const warningMessage = document.getElementById("warning-message");
 
-    msg = "";
+    msg = "I am not in today. Please contact dispatch for any changes. Thanks Mohamed";
 
-    warningMessage.innerHTML = msg;
+    if (loca === "BBSA") {
+        warningMessage.innerHTML = msg;
+    } else {
+        warningMessage.innerHTML = "Please see below portal information is correct. If incorrect, please contact outbrief.";
+    }
+
+    
 
 }
 
@@ -52,6 +59,9 @@ async function findDriver(routeNumber, loca) {
 async function showDriverInfo() {
     const rNumber = document.getElementById("route").value;
     const loca = document.getElementById("location").value.toUpperCase();
+
+    warningMessageToShow();
+    //reassign warning value.
 
     if (!loca || !rNumber) {
         alert("Please enter both a location and a route number.");
