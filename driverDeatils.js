@@ -19,7 +19,7 @@ const warningMessageToShow = () => {
     const warningh1 = document.getElementById("warning-h1").innerHTML = "⚠️ Important Message";
     const warningMessage = document.getElementById("warning-message");
 
-    msg = "I am not in today. Please contact dispatch for any changes. Thanks Mohamed";
+    msg = "Please see below portal information is correct. If incorrect, please contact outbrief.";
 
     if (loca === "BBSA") {
         warningMessage.innerHTML = msg;
