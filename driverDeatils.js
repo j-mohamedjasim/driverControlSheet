@@ -19,12 +19,12 @@ const warningMessageToShow = () => {
     const warningh1 = document.getElementById("warning-h1").innerHTML = "⚠️ Important Message";
     const warningMessage = document.getElementById("warning-message");
 
-    msg = "Please see below portal information is correct. If incorrect, please contact outbrief.";
+    let msg = "Please see below if all the information is incorrect. If any incorrect information, please contact outbrief.";
 
     if (loca === "BBSA") {
         warningMessage.innerHTML = msg;
     } else {
-        warningMessage.innerHTML = "Please see below portal information is correct. If incorrect, please contact outbrief.";
+        warningMessage.innerHTML = "Please see below if all the information is incorrect. If any incorrect information, please contact outbrief.";
     }
 
     
