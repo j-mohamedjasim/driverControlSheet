@@ -13,6 +13,22 @@ const pCount = document.getElementById("count");
 const outbriefLink = document.getElementById("outbriefLink");
 const locationLink = document.getElementById("locationLink");
 
+window.addEventListener("DOMContentLoaded", () => {
+    const rNumber = document.getElementById("route").value;
+    const loca = document.getElementById("location").value.toUpperCase();
+
+    const savedRoute = localStorage.getItem("savedRoute");
+    const savedLocation = localStorage.getItem("savedLocation");
+
+    if (savedRoute && savedLocation) {
+        document.getElementById("route").value = savedRoute;
+        document.getElementById("location").value = savedLocation;
+
+        showDriverInfo(); // auto-run
+    }
+});
+
+
 
 const warningMessageToShow = () => {
     const loca = document.getElementById("location").value.toUpperCase();
@@ -62,6 +78,9 @@ async function showDriverInfo() {
 
     warningMessageToShow();
     //reassign warning value.
+
+    localStorage.setItem("savedRoute", rNumber);
+    localStorage.setItem("savedLocation", loca);
 
     if (!loca || !rNumber) {
         alert("Please enter both a location and a route number.");
@@ -221,6 +240,16 @@ document.getElementById("showButton").addEventListener("click", showDriverInfo);
 const req2clearButton = () => {
     const rNumber = document.getElementById("route").value;
     const loca = document.getElementById("location").value.toUpperCase();
+
+    const now = new Date();
+    const hours = now.getHours();
+
+    if (hours < 12) {
+        const confirmed = confirm("Are you sure you want to request to clear now?");
+        if (!confirmed) {
+            return;
+        }
+    }
 
     if (!loca || !rNumber) {
         alert("Please enter both a location and a route number.");
