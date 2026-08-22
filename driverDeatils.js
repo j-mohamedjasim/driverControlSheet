@@ -241,7 +241,6 @@ const req2clearButton = () => {
     const rNumber = document.getElementById("route").value;
     const loca = document.getElementById("location").value.toUpperCase();
 
-    const now = new Date();
     const hours = now.getHours();
 
     if (hours < 12) {
