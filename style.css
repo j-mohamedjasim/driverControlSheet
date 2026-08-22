@@ -22,6 +22,7 @@
     margin: 10px;
     border: 3px solid black;
     border-radius: 10px;
+    padding-right: 5%;
 }
 
 .roundup-section {
@@ -57,6 +58,13 @@ header{
     border: 3px solid black;
     margin: 10px;
     border-radius: 5px;
+}
+
+@media (max-width:480px) {
+    .section-driver-details {
+        padding: 5%;
+        
+    }
 }
 
 .location, .route {
@@ -111,12 +119,14 @@ header{
     padding: 20px;
     padding-left: 20%;
     margin-bottom: 30px;
+    justify-content: center;
 }
 
 .buttons {
     gap: 10px;
     margin-left: 10px;
     padding-left: 20%;
+    padding-right: 10%;
 }
 
 #submitButton {
@@ -148,6 +158,13 @@ header{
     margin: 10px;
     border: 3px solid black;
     border-radius: 5px;
+    padding-right: 5%;
+}
+
+@media (max-width: 480px) {
+    .section-baycheck, .section-bulk {
+        padding-right: 10%;
+    }
 }
 
 .bulksection {
@@ -164,11 +181,23 @@ header{
     font-size: medium;
 }
 
+@media (max-width: 480px) {
+    .pandr, .bulksection {
+        width: 90%;
+    }
+}
+
 .section-h1-baycheck, .section-h1-bulk {
     padding-left: 20%;
     font-weight: bold;
     color: rgb(45, 14, 82);
     font-family: "Stack Sans Text", sans-serif;
+}
+
+@media (max-width: 480px) {
+    .section-h1-baycheck, .section-h1-bulk{
+        padding-left: 5px;
+    }
 }
 
 .signed-section {
