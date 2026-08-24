@@ -38,8 +38,8 @@ async function findItems(routeNumber, loca) {
             bulkLeftP5: row[21],
             bulkLeftP6: row[22],
             isSigned: row[23],
-            rdna: row[24],
-            timecards: row[25]
+            rdna: row[26],
+            timecards: row[27]
         };
     }
 

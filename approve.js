@@ -66,15 +66,19 @@ const approveSearchFunction = async () => {
         document.getElementById('bulk6').value = result.bulkLeftP6;
 
         //below are the RDNA and timecard status:
-        if (result.rdna === 'Yes') {
+
+        const rdna = result.rdna;
+        const timecards = result.timecards;
+
+        if (rdna === 'Yes') {
             document.getElementById('radio-button-rdna-yes-auth').checked = true;
-        } else if (result.rdna === 'No') {
-            documnet.getElementById('radio-button-rdna-no-auth').checked = true;
+        } else if (rdna === 'No') {
+            document.getElementById('radio-button-rdna-no-auth').checked = true;
         }
 
-        if (result.timecards === 'Yes') {
+        if (timecards === 'Yes') {
             document.getElementById('radio-button-time-yes-auth').checked = true;
-        } else if (result.timecards === 'No') {
+        } else if (timecards === 'No') {
             document.getElementById('radio-button-time-no-auth').checked = true;
         }
 
@@ -102,7 +106,7 @@ const approveForSubmission = async () => {
     const postcode1 = document.getElementById('postcode1').value.trim().toUpperCase();
     const reason1 = document.getElementById('reason1').value.trim();
     const postcode2 = document.getElementById('postcode2').value.trim().toUpperCase();
-    const reason2 = documnet.getElementById('reason2').value.trim();
+    const reason2 = document.getElementById('reason2').value.trim();
     const postcode3 = document.getElementById('postcode3').value.trim().toUpperCase();
     const reason3 = document.getElementById('reason3').value.trim();
 
@@ -132,9 +136,9 @@ const approveForSubmission = async () => {
     }
 
     if (timeYes.checked) {
-        timeYes = 'Yes';
+        timecards = 'Yes';
     } else {
-        timeNo = 'No';
+        timecards = 'No';
     }
 
     const response = await fetch("https://drivercontrolsheet.onrender.com/update-aprovals", {
