@@ -37,7 +37,9 @@ async function findItems(routeNumber, loca) {
             bulkLeftP4: row[20],
             bulkLeftP5: row[21],
             bulkLeftP6: row[22],
-            isSigned: row[23]
+            isSigned: row[23],
+            rdna: row[24],
+            timecards: row[25]
         };
     }
 
@@ -64,6 +66,18 @@ async function getDriverInput() {
         document.getElementById('bulk4').value = result.bulkLeftP4;
         document.getElementById('bulk5').value = result.bulkLeftP5;
         document.getElementById('bulk6').value = result.bulkLeftP6;
+
+        if (result.rdna === 'Yes') {
+            document.getElementById('radio-button-rdna-yes').checked = true;
+        } else if (result.rdna === 'No') {
+            documnet.getElementById('radio-button-rdna-no').checked = true;
+        }
+
+        if (result.timecards === 'Yes') {
+            document.getElementById('radio-button-time-yes').checked = true;
+        } else if (result.timecards === 'No') {
+            document.getElementById('radio-button-time-no').checked = true;
+        }
 
         if (result.isSigned !== '') {
             document.getElementById('section-h1-signed').innerHTML =
@@ -100,6 +114,32 @@ const submitChangesCheck = async () => {
     const checkBulkP4 = document.getElementById('bulk4').value;
     const checkBulkP5 = document.getElementById('bulk5').value;
     const checkBulkP6 = document.getElementById('bulk6').value;
+
+    const rdnaYes = document.getElementById("radio-button-rdna-yes");
+    const rdnaNo = document.getElementById("radio-button-rdna-no");
+
+    const timeYes = document.getElementById("radio-button-time-yes");
+    const timeNo = document.getElementById("radio-button-time-no");
+
+    if (rdnaYes === "" && rdnaNo === "" || timeYes === "" && timeNo === "") {
+        alert("RDNA and Time card status must be selected before submitting.")
+        return;
+    }
+
+    let rdnaStatuss = "";
+    let timeStatuss = "";
+
+    if (rdnaYes.checked) {
+        rdnaStatuss = 'Yes';
+    } else {
+        rdnaStatuss = 'No';
+    }
+
+    if (timeYes.checked){
+        timeStatuss = 'Yes';
+    } else {
+        timeStatuss = 'No';
+    }
 
     const hasChanges =
         result.leftInBayP1 !== checkBayP1 ||
@@ -141,7 +181,9 @@ const submitChangesCheck = async () => {
                     bulkLeftP3: checkBulkP3,
                     bulkLeftP4: checkBulkP4,
                     bulkLeftP5: checkBulkP5,
-                    bulkLeftP6: checkBulkP6
+                    bulkLeftP6: checkBulkP6,
+                    rdnaStatus: rdnaStatuss,
+                    timeStatus: timeStatuss
                 }
             })
         });

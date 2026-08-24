@@ -151,7 +151,7 @@ header{
     color: #ccc;
 }
 
-.section-baycheck, .section-bulk {
+.section-baycheck, .section-bulk, .rdna-and-timecard-section{
     padding: 50px;
     gap: 30px;
     grid-template-columns: 1fr 1fr;
@@ -159,6 +159,43 @@ header{
     border: 3px solid black;
     border-radius: 5px;
     padding-right: 5%;
+}
+
+.radio-button {
+  display: none; /* hide real radio */
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 6px 0;
+  font-size: 18px;
+}
+
+.radio-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #555;
+  border-radius: 50%;
+  margin-right: 10px;
+  position: relative;
+}
+
+.radio-button:checked + .radio-custom {
+  border-color: #007bff;
+}
+
+.radio-button:checked + .radio-custom::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background: #007bff;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media (max-width: 480px) {
