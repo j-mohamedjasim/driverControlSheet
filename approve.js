@@ -125,8 +125,9 @@ const approveForSubmission = async () => {
     const timeYes = document.getElementById('radio-button-time-yes-auth');
     const timeNo = document.getElementById('radio-button-time-no-auth');
 
-    if (rdnaYes === '' && rdnaNo === '' || timeYes === '' && timeNo === '') {
+    if (!rdnaYes.checked && !rdnaNo.checked || !timeYes.checked && !timeNo.checked) {
         alert('You need to select RDNA or Timecards status before approve the driver');
+        return;
     }
 
     if (rdnaYes.checked) {

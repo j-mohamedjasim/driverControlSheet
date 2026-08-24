@@ -121,7 +121,7 @@ const submitChangesCheck = async () => {
     const timeYes = document.getElementById("radio-button-time-yes");
     const timeNo = document.getElementById("radio-button-time-no");
 
-    if (rdnaYes === "" && rdnaNo === "" || timeYes === "" && timeNo === "") {
+    if (!rdnaYes.checked && !rdnaNo.checked || !timeYes.checked && !timeNo.checked) {
         alert("RDNA and Time card status must be selected before submitting.")
         return;
     }
