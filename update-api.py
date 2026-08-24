@@ -120,7 +120,7 @@ def update_record():
         f["leftInBayP3"], f["leftInBayR3"],
         f["bulkLeftP1"], f["bulkLeftP2"], f["bulkLeftP3"],
         f["bulkLeftP4"], f["bulkLeftP5"], f["bulkLeftP6"],
-        f["rdnsStatus"], f["timeStatus"],
+        f["rdnaStatus"], f["timeStatus"],
         date, loc, route
     ))
 
