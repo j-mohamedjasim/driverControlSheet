@@ -74,12 +74,18 @@ const approveSearchFunction = async () => {
             document.getElementById('radio-button-rdna-yes-auth').checked = true;
         } else if (rdna === 'No') {
             document.getElementById('radio-button-rdna-no-auth').checked = true;
+        } else {
+            document.getElementById('radio-button-rdna-yes-auth').checked = false;
+            document.getElementById('radio-button-rdna-no-auth').checked = false;
         }
 
         if (timecards === 'Yes') {
             document.getElementById('radio-button-time-yes-auth').checked = true;
         } else if (timecards === 'No') {
             document.getElementById('radio-button-time-no-auth').checked = true;
+        } else {
+            document.getElementById('radio-button-time-yes-auth').checked = false;
+            document.getElementById('radio-button-time-no-auth').checked = false;
         }
 
     } else {
