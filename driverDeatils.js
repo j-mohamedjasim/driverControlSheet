@@ -244,7 +244,7 @@ const req2clearButton = () => {
     const hours = now.getHours();
 
     if (hours < 12) {
-        const confirmed = confirm("Are you sure you want to request to clear now?");
+        const confirmed = confirm("It is too early to request to clear. Are you sure you want to request to clear now?");
         if (!confirmed) {
             return;
         }
