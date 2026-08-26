@@ -197,6 +197,13 @@ header{
   font-size: 18px;
 }
 
+.backButton, a {
+    margin: 10px;
+    text-decoration: none;
+}
+
+
+
 .radio-custom {
   width: 20px;
   height: 20px;
