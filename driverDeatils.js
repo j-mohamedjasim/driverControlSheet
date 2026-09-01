@@ -242,8 +242,10 @@ const req2clearButton = () => {
     const loca = document.getElementById("location").value.toUpperCase();
 
     const hours = now.getHours();
-
-    if (hours < 12) {
+    if (hours < 11) {
+        alert("It is too early to request to clear. Please wait until 12:00.");
+        return;
+    } else if (hours < 12) {
         const confirmed = confirm("It is too early to request to clear. Are you sure you want to request to clear now?");
         if (!confirmed) {
             return;
