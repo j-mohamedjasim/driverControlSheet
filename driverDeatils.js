@@ -227,7 +227,7 @@ async function showDriverInfo() {
     pSpare.innerHTML = "Spare Battery 🔋 : " + result.sparebattery;
     pCount.innerHTML = "Count " + countHand + " : " + result.count;
 
-    outbriefLink.href = `outbrief.html?route=${rNumber}&loc=${loca}`;
+    outbriefLink.href = `outbrief.html?route=${rNumber}&loc=${loca}&driver=${result.name}`;
     if (result.isTransferred === 'Yes') {
         document.getElementById("req2clear").disabled = true;
         document.getElementById("message-to-r2c").innerHTML = "Request to Clear has already been sent for this driver.";
