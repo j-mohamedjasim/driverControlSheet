@@ -207,7 +207,7 @@ def get_cebs():
     cur.execute("""
         SELECT *
         FROM cebs
-        WHERE due_date=%s AND loc=%s AND route=%s
+        WHERE due_date=%s AND location=%s AND route=%s
     """, (date, loc, route))
 
     rows = cur.fetchall()
