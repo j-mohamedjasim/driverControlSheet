@@ -234,9 +234,9 @@ def update_cebs_not_complete():
 
     cur.execute("""
         UPDATE cebs
-        SET not_complete_status=%s
+        SET not_complete_status=%s, status=%s
         WHERE id=%s
-    """, (not_complete_status, id))
+    """, (not_complete_status, '', id))
 
     conn.commit()
     cur.close()
@@ -255,9 +255,9 @@ def update_cebs_status():
 
     cur.execute("""
         UPDATE cebs
-        SET status=%s
+        SET status=%s, not_complete_status=%s
         WHERE id=%s
-    """, (status, id))
+    """, (status, '', id))
 
     conn.commit()
     cur.close()
