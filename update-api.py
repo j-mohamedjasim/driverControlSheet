@@ -220,7 +220,7 @@ def get_cebs():
 
     return {
         "columns": columns,
-        "row": rows
+        "rows": rows
     }
 
 @app.route("/update-cebs-not-complete", methods=["POST"])
