@@ -193,6 +193,78 @@ def updateApprovals():
 
     return {"status": "success"}
 
+# get CEBS information and to show in the outbrief page.
+@app.route("/get-record-cebs", methods=["POST"])
+def get_cebs():
+    body = request.json
+    date = body["date"]
+    loc = body["loc"]
+    route = body["route"]
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT *
+        FROM cebs
+        WHERE due_date=%s AND loc=%s AND route=%s
+    """, (date, loc, route))
+
+    row = cur.fetchone()
+    cur.close()
+    conn.close()
+
+    columns = [
+        "id", "date", "route", "due_date", "type", "tracking", "address", "instruction", "status", "not_complete_status", "req_by", "req_pin", "driver_name", "location"
+    ]
+
+    return {
+        "columns": columns,
+        "row": row
+    }
+
+@app.route("/update-cebs-not-complete", methods=["POST"])
+def update_cebs_not_complete():
+    body = request.json
+    id = body["id"]
+    not_complete_status = body["not_complete_status"]
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute("""
+        UPDATE cebs
+        SET not_complete_status=%s
+        WHERE id=%s
+    """, (not_complete_status, id))
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return {"status": "success"}
+
+@app.route("/update-cebs-status", methods=["POST"])
+def update_cebs_status():
+    body = request.json
+    id = body["id"]
+    status = body["status"]
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute("""
+        UPDATE cebs
+        SET status=%s
+        WHERE id=%s
+    """, (status, id))
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return {"status": "success"}
+
 # -----------------------------
 # RUN SERVER (Render)
 # -----------------------------
