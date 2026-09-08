@@ -283,3 +283,37 @@ header{
     text-align: center;
     background-color: yellow;
 }
+
+.button-complete-notcomplete {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    width: 300px;
+    margin: 100px auto;
+    border-radius: 8px;
+}
+
+.case-type {
+    text-align:center;
+}
+
+.case-handler {
+    text-align:right;
+}
+
+@media (max-width: 480px) {
+    .button-section {
+        flex-direction: column; /* stack top/bottom */
+        gap: 12px; /* space between stacked buttons */
+    }
+}
