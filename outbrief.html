@@ -15,6 +15,32 @@
         <br><br>
     </section>
 
+    <div class="case-box template" style="display:none;">
+        <h1 class="tracking"></h1>
+        <p class="case-type"></p>
+        <p class="case-address"></p>
+        <p class="instruction"></p>
+        <p class="case-handler"></p>
+
+        <section class="button-section">
+            <button class="complete-btn" type="button">Complete</button>
+            <button class="not-complete-btn" type="button">Not Complete</button>
+        </section>
+    </div>
+
+    <div id="cases-container"></div>
+
+
+    <div id="reasonModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>Reason for Not Complete</h3>
+            <textarea id="reasonInput" rows="4" placeholder="Type reason here..."></textarea>
+            <button id="reasonSubmit">Submit</button>
+            <button id="reasonCancel">Cancel</button>
+        </div>
+    </div>
+
+
     <section class="basic-data">
         <h1 id="date"></h1>
         <h1 id="location"></h1>
