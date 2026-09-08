@@ -210,7 +210,7 @@ def get_cebs():
         WHERE due_date=%s AND loc=%s AND route=%s
     """, (date, loc, route))
 
-    row = cur.fetchone()
+    rows = cur.fetchall()
     cur.close()
     conn.close()
 
@@ -220,7 +220,7 @@ def get_cebs():
 
     return {
         "columns": columns,
-        "row": row
+        "row": rows
     }
 
 @app.route("/update-cebs-not-complete", methods=["POST"])
