@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 import psycopg2
 import os
@@ -264,6 +264,71 @@ def update_cebs_status():
     conn.close()
 
     return {"status": "success"}
+
+#the below code is to save photo during baycheck.
+
+@app.route("/upload-photo", methods=["POST"])
+def upload_photo():
+    if "photo" not in request.files:
+        return jsonify({"error": "No file provided"}), 400
+
+    file = request.files["photo"]
+    blob = file.read()
+
+    loc = request.form.get("loc")
+    route = request.form.get("route")
+    date = request.form.get("date")
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute("""
+        UPDATE driver_records
+        SET photo = %s
+        WHERE date = %s AND loc = %s AND route = %s
+        RETURNING route;
+    """, (psycopg2.Binary(blob), date, loc, route))
+
+    updated = cur.fetchone()
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    if not updated:
+        return jsonify({"error": "Record not found"}), 404
+
+    return jsonify({"status": "updated", "route": updated[0]})
+
+@app.route("/get-photo", methods=["POST"])
+def get_photo():
+    data = request.json
+    loc = data["loc"]
+    route = data["route"]
+    date = data["date"]
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT photo
+        FROM driver_records
+        WHERE date = %s AND loc = %s AND route = %s
+        LIMIT 1;
+    """, (date, loc, route))
+
+    row = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    if not row or not row[0]:
+        return jsonify({"error": "No photo found"}), 404
+
+    image_bytes = row[0]
+
+    return Response(image_bytes, mimetype="image/jpeg")
+
 
 # -----------------------------
 # RUN SERVER (Render)
