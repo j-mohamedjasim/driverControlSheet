@@ -88,6 +88,37 @@ const approveSearchFunction = async () => {
             document.getElementById('radio-button-time-no-auth').checked = false;
         }
 
+        const locA = document.getElementById("locationA").value.trim().toUpperCase();
+        const rte = document.getElementById("routeA").value.trim();
+        const now = new Date();
+        const today = now.getFullYear() + '-' +
+                    String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                    String(now.getDate()).padStart(2, '0');
+        fetch("https://drivercontrolsheet.onrender.com/get-photo", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                loc: locA,
+                route: rte,
+                date: today
+            })
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("No photo found");
+            }
+            return res.blob();
+        })
+        .then(blob => {
+            const imgUrl = URL.createObjectURL(blob);
+            document.getElementById("preview").src = imgUrl;
+        })
+        .catch(err => {
+            document.getElementById("preview").src = "";
+            console.error(err);
+        });
+        
+
     } else {
         alert('No record found for the given route number and location. Please ask the driver to contact with dispatch.');
     }

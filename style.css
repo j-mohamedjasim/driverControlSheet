@@ -127,7 +127,7 @@ header{
     padding-left: 50px;
 }
 
-#showButton, #req2clear, #submitButton, #submit-for-approve{
+#showButton, #req2clear, #submitButton, #submit-for-approve, #captureBtn, #uploadBtn{
     background-color: rgb(248, 113, 3);
     color: white;
     font-family: "Stack Sans Text", sans-serif;
@@ -204,8 +204,6 @@ header{
     margin: 10px;
     text-decoration: none;
 }
-
-
 
 .radio-custom {
   width: 20px;
@@ -315,5 +313,29 @@ header{
     .button-section {
         flex-direction: column; /* stack top/bottom */
         gap: 12px; /* space between stacked buttons */
+    }
+}
+
+.camera-capture{
+    margin: 10px;
+    border: 3px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    display:block;
+}
+
+@media (max-width: 400px) {
+    #captureBtn, #uploadBtn {
+        margin: 10px;
+    }
+    #camera{
+        width: 300px;
+    }
+    .camera-capture {
+        margin: 10px;
+    }
+    #preview {
+        width: 300px;
     }
 }

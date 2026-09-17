@@ -4,6 +4,8 @@ const routeNumber = urlParams.get('route');
 document.getElementById('route-number').innerHTML = 'Route Number: ' + (routeNumber || 'Please go back to previous page and check your portals first.');
 document.getElementById('location').innerHTML = 'Location: ' + (urlParams.get('loc') || 'Please go back to previous page and check your portals first.');
 
+let photoUpload = false;
+
 // function to fetch data from the server and display it in the HTML for CEBS
 
 async function cebs() {
@@ -67,8 +69,8 @@ async function cebs() {
 
         switch (item.type.toLowerCase()) {
             case 'bayout':
-                bg = 'rgb(128, 197, 128)';
-                text = 'rgb(4, 220, 4)';
+                bg = 'rgb(180, 241, 180)';
+                text = 'rgb(1, 107, 1)';
                 break;
             case 'reattempt':
                 bg = 'rgb(225, 164, 84)';
@@ -300,6 +302,7 @@ async function getDriverInput() {
         }
     } else {
         alert('No record found for the given route number and location.');
+        window.location.href = 'index.html';
     }
 }
 
@@ -338,6 +341,11 @@ const submitChangesCheck = async () => {
     if (!rdnaYes.checked && !rdnaNo.checked || !timeYes.checked && !timeNo.checked) {
         alert("RDNA and Time card status must be selected before submitting.")
         return;
+    }
+
+    if (photoUpload != true) {
+        alert("Please take picture of your bay before submitting.")
+        return
     }
 
     let rdnaStatuss = "";
@@ -405,6 +413,7 @@ const submitChangesCheck = async () => {
         const data = await response.json();
         if (response.ok) {
             alert('Changes saved successfully!');
+            window.location.href = 'index.html';
         } else {
             alert('Failed: ' + data.error);
         }
@@ -417,3 +426,62 @@ const submitChangesCheck = async () => {
 
 
 document.getElementById('submitButton').addEventListener('click', submitChangesCheck);
+
+const video = document.getElementById("camera");
+
+navigator.mediaDevices.getUserMedia({ video: true })
+  .then(stream => {
+    video.srcObject = stream;
+  })
+  .catch(err => {
+    console.error("Camera error:", err);
+  });
+
+const canvas = document.getElementById("canvas");
+const preview = document.getElementById("preview");
+
+document.getElementById("captureBtn").onclick = () => {
+    const w = video.videoWidth;
+    const h = video.videoHeight;
+
+    canvas.width = w;
+    canvas.height = h;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, w, h);
+
+    canvas.toBlob(
+        blob => {
+            preview.src = URL.createObjectURL(blob);
+            window.capturedBlob = blob;
+        },
+        "image/jpeg",
+        0.5
+    );
+};
+
+document.getElementById("uploadBtn").onclick = () => {
+    if (!window.capturedBlob) {
+        alert("Please capture a photo first.");
+        return;
+    }
+    const today = new Date().toISOString().split('T')[0];
+    const loca = urlParams.get('loc');
+    const formData = new FormData();
+    formData.append("photo", window.capturedBlob, "driver.jpg");
+    formData.append("loc", loca);
+    formData.append("route", routeNumber);
+    formData.append("date", today);
+
+    fetch("https://drivercontrolsheet.onrender.com/upload-photo", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("Uploaded:", data);
+        alert("Photo uploaded successfully!");
+        photoUpload = true;
+    })
+    .catch(err => console.error(err));
+};
