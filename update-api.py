@@ -27,7 +27,7 @@ def get_records():
     conn = get_db()
     cur = conn.cursor()
 
-    cur.execute("SELECT * FROM driver_records WHERE date = %s AND loc = %s AND route = %s LIMIT 1", (date, loc, route))
+    cur.execute("SELECT id, date, loc, route, name, scanner, printer, sparebattery, count, requestedClear, isTransferred, leftInBayP1, leftInBayR1, leftInBayP2, leftInBayR2, leftInBayP3, leftInBayR3, bulkLeftP1, bulkLeftP2, bulkLeftP3, bulkLeftP4, bulkLeftP5, bulkLeftP6, isSigned, rdna, timecards FROM driver_records WHERE date = %s AND loc = %s AND route = %s LIMIT 1", (date, loc, route))
     row = cur.fetchone()
 
     if not row:
