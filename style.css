@@ -325,17 +325,21 @@ header{
     display:block;
 }
 
-@media (max-width: 400px) {
+#preview {
+    width: 300px;
+}
+
+@media (max-width: 300px) {
     #captureBtn, #uploadBtn {
         margin: 10px;
     }
     #camera{
-        width: 300px;
+        width: 200px;
     }
     .camera-capture {
         margin: 10px;
     }
     #preview {
-        width: 300px;
+        width: 200px;
     }
 }
