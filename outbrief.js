@@ -343,7 +343,7 @@ const submitChangesCheck = async () => {
         return;
     }
 
-    if (photoUpload != true) {
+    if (photoUpload !== true) {
         alert("Please take picture of your bay before submitting.")
         return
     }
