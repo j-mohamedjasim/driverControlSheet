@@ -339,8 +339,10 @@ def get_photo():
 #Security checks before the driver departs
 #--------------------------------------------
 
-@app.route("/api/outbriefed-routes")
+@app.route("/api/outbriefed-routes", methods=['POST'])
 def outbriefed_routes():
+    data = request.get_json()
+    location = data.get("location")
     tdate = todayDate()
     conn = get_db()
     cursor = conn.cursor()
@@ -350,9 +352,9 @@ def outbriefed_routes():
                name,
                isOutbriefed
         FROM driver_records
-        WHERE isOutbriefed = %s AND date =%s
+        WHERE isOutbriefed = %s AND date =%s AND loc =%s
         ORDER BY route ASC
-    """,('Yes', tdate))
+    """,('Yes', tdate, location))
 
     rows = cursor.fetchall()
 
