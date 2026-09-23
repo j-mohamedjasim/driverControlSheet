@@ -35,12 +35,12 @@ const warningMessageToShow = () => {
     const warningh1 = document.getElementById("warning-h1").innerHTML = "⚠️ Important Message";
     const warningMessage = document.getElementById("warning-message");
 
-    let msg = "Please see below if all the information is correct. If any incorrect information, please contact outbrief.";
+    let msg = "Please see below if all the information is correct. If any incorrect information, please contact outbrief. <br><br>If you cannot find your information below, please contact outbrief";
 
     if (loca === "BBSA") {
         warningMessage.innerHTML = msg;
     } else {
-        warningMessage.innerHTML = "Please see below if all the information is incorrect. If any incorrect information, please contact outbrief.";
+        warningMessage.innerHTML = "Please see below if all the information is incorrect. If any incorrect information, please contact outbrief. <br><br>If you cannot find your information below, please contact outbrief.";
     }
 
     
