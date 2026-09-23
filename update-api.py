@@ -350,9 +350,9 @@ def outbriefed_routes():
     cursor.execute("""
         SELECT route,
                name,
-               isOutbriefed
+               isoutbriefed
         FROM driver_records
-        WHERE isOutbriefed = %s AND date =%s AND loc =%s
+        WHERE isoutbriefed = %s AND date =%s AND loc =%s
         ORDER BY route ASC
     """,('Yes', tdate, location))
 
