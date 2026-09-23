@@ -358,6 +358,8 @@ def outbriefed_routes():
 
     rows = cursor.fetchall()
 
+    print(rows)
+
     data = [
         {
             "route": row[0],
