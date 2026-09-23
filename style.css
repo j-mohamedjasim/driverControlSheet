@@ -127,7 +127,7 @@ header{
     padding-left: 50px;
 }
 
-#showButton, #req2clear, #submitButton, #submit-for-approve, #captureBtn, #uploadBtn{
+#showButton, #req2clear, #submitButton, #submit-for-approve, #captureBtn, #uploadBtn, #showOutbriefedBtn{
     background-color: rgb(248, 113, 3);
     color: white;
     font-family: "Stack Sans Text", sans-serif;
@@ -160,7 +160,7 @@ header{
     margin-left: 20%;
 }
 
-#showButton:hover, #req2clear:hover, #submitButton:hover, #submit-for-approve:hover, .outbrief-process:hover {
+#showButton:hover, #req2clear:hover, #submitButton:hover, #submit-for-approve:hover, .outbrief-process:hover, #showOutbriefedBtn:hover{
     background-color: rgb(190, 83, 41);
     color: white;
     transform: scale(1.05);
@@ -342,4 +342,43 @@ header{
     #preview {
         width: 200px;
     }
+}
+
+.header-of-security{
+    text-align: center;
+    margin: 10px;
+    font-family: "Stack Sans Text", sans-serif;
+    
+}
+
+#outbriefTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    overflow: hidden;
+}
+
+#outbriefTable thead {
+    background: #4D148C; /* FedEx purple */
+    color: white;
+}
+
+#outbriefTable th,
+#outbriefTable td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+#outbriefTable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+#outbriefTable tbody tr:nth-of-type(even) {
+    background-color: #f8f8f8;
+}
+
+#outbriefTable tbody tr:hover {
+    background-color: #ece4f6;
+    cursor: pointer;
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supervisor Approvals</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <section class="section-driver-details">
+        <h1 id="date"></h1>
+        <input type="text" id="locationInput" class="location" name="location" placeholder="BBSA">
+        <button id="showOutbriefedBtn" type="button">SHOW</button><br>
+    </section>
+
+    <div class="div-outbrief-security">
+        <section>
+            <h2 class="header-of-security">Outbriefed Drivers</h2>
+
+            <table id="outbriefTable" border="1">
+                <thead>
+                    <tr>
+                        <th>Route</th>
+                        <th>Driver Name</th>
+                        <th>Outbrief</th>
+                    </tr>
+                </thead>
+                    <tbody></tbody>
+                </table>
+
+        </section>
+    </div>
+
+
+    <script src="index.js"></script>
+    <script src="data.js"></script>
+    <script src="outbrief.js"></script>
+    <script src="approve.js"></script>
+    <script src="securityCheck.js"></script>
+    
+</body>
+</html>
