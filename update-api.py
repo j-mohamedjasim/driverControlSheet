@@ -341,6 +341,7 @@ def get_photo():
 
 @app.route("/api/outbriefed-routes", methods=['POST'])
 def outbriefed_routes():
+    print("ROUTE HIT")
     data = request.get_json()
     location = data.get("location")
     tdate = todayDate()
