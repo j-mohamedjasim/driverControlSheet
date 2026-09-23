@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 import psycopg2
 import os
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
@@ -11,6 +12,11 @@ CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 # -----------------------------
 def get_db():
     return psycopg2.connect(os.getenv("DATABASE_URL"))
+
+def todayDate():
+    today = datetime.today()
+    tdate = today.strftime('%Y-%m-%d')
+    return tdate
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
@@ -328,6 +334,41 @@ def get_photo():
     image_bytes = row[0]
 
     return Response(image_bytes, mimetype="image/jpeg")
+
+#--------------------------------------------
+#Security checks before the driver departs
+#--------------------------------------------
+
+@app.route("/api/outbriefed-routes")
+def outbriefed_routes():
+    tdate = todayDate()
+    conn = get_db()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT route,
+               name,
+               isOutbriefed
+        FROM driver_records
+        WHERE isOutbriefed = %s AND date =%s
+        ORDER BY route ASC
+    """,('Yes', tdate))
+
+    rows = cursor.fetchall()
+
+    data = [
+        {
+            "route": row[0],
+            "driver_name": row[1],
+            "outbrief": row[2]
+        }
+        for row in rows
+    ]
+
+    cursor.close()
+    conn.close()
+
+    return jsonify(data)
 
 
 # -----------------------------
