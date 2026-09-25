@@ -127,7 +127,7 @@ header{
     padding-left: 50px;
 }
 
-#showButton, #req2clear, #submitButton, #submit-for-approve, #captureBtn, #uploadBtn, #showOutbriefedBtn{
+#showButton, #req2clear, #submitButton, #submit-for-approve, #captureBtn, #uploadBtn, #showOutbriefedBtn, #showOutbriefedBtnReload{
     background-color: rgb(248, 113, 3);
     color: white;
     font-family: "Stack Sans Text", sans-serif;
@@ -160,10 +160,14 @@ header{
     margin-left: 20%;
 }
 
-#showButton:hover, #req2clear:hover, #submitButton:hover, #submit-for-approve:hover, .outbrief-process:hover, #showOutbriefedBtn:hover{
+#showButton:hover, #req2clear:hover, #submitButton:hover, #submit-for-approve:hover, .outbrief-process:hover, #showOutbriefedBtn:hover, #showOutbriefedBtnReload{
     background-color: rgb(190, 83, 41);
     color: white;
     transform: scale(1.05);
+}
+
+.reload-button {
+    margin: 10px;
 }
 
 #req2clear:disabled {
