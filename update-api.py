@@ -57,7 +57,7 @@ def get_record():
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT id, date, loc, route, name, scanner, printer, sparebattery, count, requestedClear, isTransferred, leftInBayP1, leftInBayR1, leftInBayP2, leftInBayR2, leftInBayP3, leftInBayR3, bulkLeftP1, bulkLeftP2, bulkLeftP3, bulkLeftP4, bulkLeftP5, bulkLeftP6, isSigned, created_at, updated_at, rdna, timecards
+        SELECT id, date, loc, route, name, scanner, printer, sparebattery, count, requestedClear, isTransferred, leftInBayP1, leftInBayR1, leftInBayP2, leftInBayR2, leftInBayP3, leftInBayR3, bulkLeftP1, bulkLeftP2, bulkLeftP3, bulkLeftP4, bulkLeftP5, bulkLeftP6, isSigned, created_at, updated_at, rdna, timecards, dgstatus, dgdetails
         FROM driver_records
         WHERE date=%s AND loc=%s AND route=%s
     """, (date, loc, route))
@@ -78,7 +78,7 @@ def get_record():
         "leftInBayP3", "leftInBayR3",
         "bulkLeftP1", "bulkLeftP2", "bulkLeftP3",
         "bulkLeftP4", "bulkLeftP5", "bulkLeftP6",
-        "isSigned", "rdna", "timecards", "created_at", "updated_at"
+        "isSigned", "rdna", "timecards", "created_at", "updated_at", "dgstatus", "dgdetails"
     ]
 
     return {
@@ -118,6 +118,8 @@ def update_record():
             bulkLeftP6=%s,
             rdna=%s,
             timecards=%s,
+            dgstatus=%s,
+            dgdetails=%s,
             updated_at=NOW()
         WHERE date=%s AND loc=%s AND route=%s
     """, (
@@ -126,7 +128,7 @@ def update_record():
         f["leftInBayP3"], f["leftInBayR3"],
         f["bulkLeftP1"], f["bulkLeftP2"], f["bulkLeftP3"],
         f["bulkLeftP4"], f["bulkLeftP5"], f["bulkLeftP6"],
-        f["rdnaStatus"], f["timeStatus"],
+        f["rdnaStatus"], f["timeStatus"], f["dgStatus"], f["dgDetails"],
         date, loc, route
     ))
 
@@ -182,16 +184,19 @@ def updateApprovals():
     rdnaStatus = body["rdnaStatus"]
     timeStatus = body["timeStatus"]
 
+    dgStatus = body["dgStatus"]
+    dgDetails = body["dgDetails"]
+
     conn = get_db()
     cur = conn.cursor()
 
     fString = f"""
             UPDATE driver_records
-            SET isSigned=%s, leftInBayP1=%s, leftInBayR1=%s, leftInBayP2=%s, leftInBayR2=%s,leftInBayP3=%s, leftInBayR3=%s, bulkLeftP1=%s, bulkLeftP2=%s, bulkLeftP3=%s, bulkLeftP4=%s, bulkLeftP5=%s, bulkLeftP6=%s, rdna=%s, timecards=%s, updated_at=NOW()
+            SET isSigned=%s, leftInBayP1=%s, leftInBayR1=%s, leftInBayP2=%s, leftInBayR2=%s,leftInBayP3=%s, leftInBayR3=%s, bulkLeftP1=%s, bulkLeftP2=%s, bulkLeftP3=%s, bulkLeftP4=%s, bulkLeftP5=%s, bulkLeftP6=%s, rdna=%s, timecards=%s, dgstatus=%s, dgdetails=%s, updated_at=NOW()
             WHERE date=%s AND loc=%s AND route=%s
         """
 
-    cur.execute(fString, (appBy, leftInBayP1, leftInBayR1, leftInBayP2, leftInBayR2, leftInBayP3, leftInBayR3, bulkLeftP1, bulkLeftP2, bulkLeftP3, bulkLeftP4, bulkLeftP5, bulkLeftP6, rdnaStatus, timeStatus, date, loc, route))
+    cur.execute(fString, (appBy, leftInBayP1, leftInBayR1, leftInBayP2, leftInBayR2, leftInBayP3, leftInBayR3, bulkLeftP1, bulkLeftP2, bulkLeftP3, bulkLeftP4, bulkLeftP5, bulkLeftP6, rdnaStatus, timeStatus, dgStatus, dgDetails, date, loc, route))
 
     conn.commit()
     cur.close()

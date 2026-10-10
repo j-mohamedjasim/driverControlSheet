@@ -69,6 +69,8 @@ const approveSearchFunction = async () => {
 
         const rdna = result.rdna;
         const timecards = result.timecards;
+        const dgStatus = result.dgstatus;
+        const dgDetails = result.dgdetails;
 
         if (rdna === 'Yes') {
             document.getElementById('radio-button-rdna-yes-auth').checked = true;
@@ -87,6 +89,17 @@ const approveSearchFunction = async () => {
             document.getElementById('radio-button-time-yes-auth').checked = false;
             document.getElementById('radio-button-time-no-auth').checked = false;
         }
+
+        if (dgStatus === 'Yes') {
+            document.getElementById('radio-button-dg-yes-auth').checked = true;
+        } else if (dgStatus === 'No') {
+            document.getElementById('radio-button-dg-no-auth').checked = true;
+            document.getElementById('dgDetails-auth').value = dgDetails;
+        } else {
+            document.getElementById('radio-button-dg-yes-auth').checked = false;
+            document.getElementById('radio-button-dg-no-auth').checked = false;
+        }
+        
 
         const locA = document.getElementById("locationA").value.trim().toUpperCase();
         const rte = document.getElementById("routeA").value.trim();
@@ -156,11 +169,16 @@ const approveForSubmission = async () => {
 
     let rdna = '';
     let timecards = '';
+    let dgStatus = '';
+    let dgDetails = '';
 
     const rdnaYes = document.getElementById('radio-button-rdna-yes-auth');
     const rdnaNo = document.getElementById('radio-button-rdna-no-auth');
     const timeYes = document.getElementById('radio-button-time-yes-auth');
     const timeNo = document.getElementById('radio-button-time-no-auth');
+    const dgYes = document.getElementById('radio-button-dg-yes-auth');
+    const dgNo = document.getElementById('radio-button-dg-no-auth');
+    const dgDetailsInput = document.getElementById('dgDetails-auth');
 
     if (!rdnaYes.checked && !rdnaNo.checked || !timeYes.checked && !timeNo.checked) {
         alert('You need to select RDNA or Timecards status before approve the driver');
@@ -178,6 +196,14 @@ const approveForSubmission = async () => {
     } else {
         timecards = 'No';
     }
+
+    if (dgYes.checked) {
+        dgStatus = 'Yes';
+    } else {
+        dgStatus = 'No';
+        dgDetails = dgDetailsInput.value.trim();
+    }
+    
 
     const response = await fetch("https://drivercontrolsheet.onrender.com/update-aprovals", {
         method: "POST",
@@ -200,8 +226,9 @@ const approveForSubmission = async () => {
             bulkLeftP5: bulk5,
             bulkLeftP6: bulk6,
             rdnaStatus: rdna,
-            timeStatus: timecards
-
+            timeStatus: timecards,
+            dgStatus: dgStatus,
+            dgDetails: dgDetails
         })
     });
 

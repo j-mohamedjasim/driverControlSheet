@@ -8,6 +8,15 @@ let photoUpload = false;
 
 // function to fetch data from the server and display it in the HTML for CEBS
 
+document.getElementById('radio-button-dg-no').addEventListener('change', () => {
+    document.getElementById('dgDetails').style.display = 'block';
+});
+
+document.getElementById('radio-button-dg-yes').addEventListener('change', () => {
+    document.getElementById('dgDetails').style.display = 'none';
+    document.getElementById('dgDetails').value = '';
+});
+
 async function cebs() {
     const loca = urlParams.get('loc');
     const driver = decodeURIComponent(urlParams.get('driver') || '');
@@ -255,7 +264,9 @@ async function findItems(routeNumber, loca) {
             bulkLeftP6: row[22],
             isSigned: row[23],
             rdna: row[26],
-            timecards: row[27]
+            timecards: row[27],
+            dg: row[28],
+            dgDetails: row[29]
         };
     }
 
@@ -293,6 +304,13 @@ async function getDriverInput() {
             document.getElementById('radio-button-time-yes').checked = true;
         } else if (result.timecards === 'No') {
             document.getElementById('radio-button-time-no').checked = true;
+        }
+
+        if (result.dg === 'Yes') {
+            document.getElementById('radio-button-dg-yes').checked = true;
+        } else if (result.dg === 'No') {
+            document.getElementById('radio-button-dg-no').checked = true;
+            document.getElementById('dgDetails').value = result.dgDetails || '';
         }
 
         if (result.isSigned !== '') {
@@ -338,10 +356,23 @@ const submitChangesCheck = async () => {
     const timeYes = document.getElementById("radio-button-time-yes");
     const timeNo = document.getElementById("radio-button-time-no");
 
-    if (!rdnaYes.checked && !rdnaNo.checked || !timeYes.checked && !timeNo.checked) {
+    const dgYes = document.getElementById("radio-button-dg-yes");
+    const dgNo = document.getElementById("radio-button-dg-no");
+    const dgDetails = document.getElementById("dgDetails").value;
+
+    if (!rdnaYes.checked && !rdnaNo.checked || !timeYes.checked && !timeNo.checked || !dgYes.checked && !dgNo.checked) {
         alert("RDNA and Time card status must be selected before submitting.")
         return;
     }
+
+    if (dgNo.checked && dgDetails.trim() === "") {
+        document.getElementById("dgDetails").classList.add('error');
+        document.getElementById("dgDetails").focus();
+        alert("If you have not checked DG cage, please provide a reason before submitting.")
+        return;
+    }
+
+    document.getElementById("dgDetails").classList.remove("error");
 
     if (photoUpload !== true) {
         alert("Please take picture of your bay before submitting.")
@@ -350,6 +381,8 @@ const submitChangesCheck = async () => {
 
     let rdnaStatuss = "";
     let timeStatuss = "";
+    let dgStatuss = "";
+    let dgDetailsStatus = "";
 
     if (rdnaYes.checked) {
         rdnaStatuss = 'Yes';
@@ -361,6 +394,13 @@ const submitChangesCheck = async () => {
         timeStatuss = 'Yes';
     } else {
         timeStatuss = 'No';
+    }
+
+    if (dgYes.checked) {
+        dgStatuss = 'Yes';
+    } else {
+        dgStatuss = 'No';
+        dgDetailsStatus = dgDetails;
     }
 
     const hasChanges =
@@ -405,7 +445,9 @@ const submitChangesCheck = async () => {
                     bulkLeftP5: checkBulkP5,
                     bulkLeftP6: checkBulkP6,
                     rdnaStatus: rdnaStatuss,
-                    timeStatus: timeStatuss
+                    timeStatus: timeStatuss,
+                    dgStatus: dgStatuss,
+                    dgDetails: dgDetailsStatus.trim()
                 }
             })
         });
