@@ -19,6 +19,18 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
+#dgDetails, #dgDetails-auth {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid black;
+    color: rgb(45, 14, 82);
+    font-family: "Stack Sans Text", sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
 .heading {
     color: whitesmoke;
 

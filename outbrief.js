@@ -305,13 +305,27 @@ async function getDriverInput() {
         } else if (result.timecards === 'No') {
             document.getElementById('radio-button-time-no').checked = true;
         }
-
-        if (result.dg === 'Yes') {
-            document.getElementById('radio-button-dg-yes').checked = true;
-        } else if (result.dg === 'No') {
-            document.getElementById('radio-button-dg-no').checked = true;
-            document.getElementById('dgDetails').value = result.dgDetails || '';
+        if (loca === 'BBSA' || loca === 'LCYT8') {
+            document.getElementById('h1-header-for-dg-show').style.display = 'flex';
+            document.getElementById('h1-header-for-dg-show').innerHTML = 'RDNA, Timecard and DG';
+            document.getElementById('dg-label').style.display = 'flex';
+            document.getElementById('radio-button-dg-yes').parentElement.style.display = 'flex';
+            document.getElementById('radio-button-dg-no').parentElement.style.display = 'flex';
+            document.getElementById('dgDetails').style.display = 'block';
+            if (result.dg === 'Yes') {
+                document.getElementById('radio-button-dg-yes').checked = true;
+            } else if (result.dg === 'No') {
+                document.getElementById('radio-button-dg-no').checked = true;
+                document.getElementById('dgDetails').value = result.dgDetails || '';
+            }
+        } else {
+            document.getElementById('h1-header-for-dg-show').innerHTML = 'RDNA and Timecard';
+            document.getElementById('dg-label').style.display = 'none';
+            document.getElementById('radio-button-dg-yes').parentElement.style.display= 'none';
+            document.getElementById('radio-button-dg-no').parentElement.style.display = 'none';
+            document.getElementById('dgDetails').style.display = 'none';
         }
+        
 
         if (result.isSigned !== '') {
             document.getElementById('section-h1-signed').innerHTML =
