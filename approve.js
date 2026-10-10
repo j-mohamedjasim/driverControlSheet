@@ -65,12 +65,12 @@ const approveSearchFunction = async () => {
         document.getElementById('bulk6').value = "";
         document.getElementById('bulk6').value = result.bulkLeftP6;
 
-        //below are the RDNA and timecard status:
+        //below are the RDNA and timecard status and DG status and details:
 
         const rdna = result.rdna;
         const timecards = result.timecards;
-        const dgStatus = result.dgstatus;
-        const dgDetails = result.dgdetails;
+        const dgStatus = result.dg;
+        const dgDetails = result.dgDetails;
 
         if (rdna === 'Yes') {
             document.getElementById('radio-button-rdna-yes-auth').checked = true;
@@ -92,12 +92,14 @@ const approveSearchFunction = async () => {
 
         if (dgStatus === 'Yes') {
             document.getElementById('radio-button-dg-yes-auth').checked = true;
+            document.getElementById('dgDetails-auth').value = dgDetails;
         } else if (dgStatus === 'No') {
             document.getElementById('radio-button-dg-no-auth').checked = true;
             document.getElementById('dgDetails-auth').value = dgDetails;
         } else {
             document.getElementById('radio-button-dg-yes-auth').checked = false;
             document.getElementById('radio-button-dg-no-auth').checked = false;
+            document.getElementById('dgDetails-auth').value = "";
         }
         
 

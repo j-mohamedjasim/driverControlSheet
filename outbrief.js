@@ -5,6 +5,7 @@ document.getElementById('route-number').innerHTML = 'Route Number: ' + (routeNum
 document.getElementById('location').innerHTML = 'Location: ' + (urlParams.get('loc') || 'Please go back to previous page and check your portals first.');
 
 let photoUpload = false;
+let dgChecks = true;
 
 // function to fetch data from the server and display it in the HTML for CEBS
 
@@ -306,6 +307,7 @@ async function getDriverInput() {
             document.getElementById('radio-button-time-no').checked = true;
         }
         if (loca === 'BBSA' || loca === 'LCYT8') {
+            dgChecks = true;
             document.getElementById('h1-header-for-dg-show').style.display = 'flex';
             document.getElementById('h1-header-for-dg-show').innerHTML = 'RDNA, Timecard and DG';
             document.getElementById('dg-label').style.display = 'flex';
@@ -319,6 +321,7 @@ async function getDriverInput() {
                 document.getElementById('dgDetails').value = result.dgDetails || '';
             }
         } else {
+            dgChecks = false;
             document.getElementById('h1-header-for-dg-show').innerHTML = 'RDNA and Timecard';
             document.getElementById('dg-label').style.display = 'none';
             document.getElementById('radio-button-dg-yes').parentElement.style.display= 'none';
@@ -374,10 +377,19 @@ const submitChangesCheck = async () => {
     const dgNo = document.getElementById("radio-button-dg-no");
     const dgDetails = document.getElementById("dgDetails").value;
 
-    if (!rdnaYes.checked && !rdnaNo.checked || !timeYes.checked && !timeNo.checked || !dgYes.checked && !dgNo.checked) {
-        alert("RDNA and Time card status must be selected before submitting.")
+    if (!rdnaYes.checked && !rdnaNo.checked || !timeYes.checked && !timeNo.checked) {
+        alert("RDNA, Timecard, and DG status must be selected before submitting.")
         return;
     }
+
+    if (dgChecks) {
+        if (!dgYes.checked && !dgNo.checked) {
+            alert("DG status must be selected before submitting.")
+            return;
+        }
+    }
+
+    
 
     if (dgNo.checked && dgDetails.trim() === "") {
         document.getElementById("dgDetails").classList.add('error');
