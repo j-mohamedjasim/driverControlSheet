@@ -389,8 +389,7 @@ def outbriefed_routes():
 EMAIL_USER = 'jasimbrothers@gmail.com'
 API_TOKEN = os.getenv('API_TOKEN')
 
-def email_password():
-    return os.getenv('EMAIL_PASSWORD')
+EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
 
 @app.route('/send-email', methods=['POST'])
 def send_email():
@@ -410,7 +409,7 @@ def send_email():
     if not subject or not body:
         return jsonify({'status': 'error', 'message': 'subject and body are required'}), 400
 
-    password = email_password()
+    password = EMAIL_PASSWORD
     if not password:
         return jsonify({'status': 'error', 'message': 'Server email not configured'}), 500
 
@@ -430,6 +429,14 @@ def send_email():
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
     return jsonify({'status': 'success'})
+
+@app.route('/test-email')
+def test_email():
+
+    return {
+        "EMAIL_USER": str(bool(EMAIL_USER)),
+        "EMAIL_PASSWORD": str(bool(os.getenv("EMAIL_PASSWORD")))
+    }
 
 # -----------------------------
 # RUN SERVER (Render)
