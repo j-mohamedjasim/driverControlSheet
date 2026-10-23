@@ -1,4 +1,6 @@
 from flask import Flask, request, jsonify, Response
+from email.message import EmailMessage
+import smtplib
 from flask_cors import CORS
 import psycopg2
 import os
@@ -380,6 +382,54 @@ def outbriefed_routes():
 
     return jsonify(data)
 
+#--------------------------------------------
+#Send email
+#--------------------------------------------
+
+EMAIL_USER = 'jasimbrothers@gmail.com'
+API_TOKEN = os.getenv('API_TOKEN')
+
+def email_password():
+    return os.getenv('EMAIL_PASSWORD')
+
+@app.route('/send-email', methods=['POST'])
+def send_email():
+    # simple auth
+    if not API_TOKEN or request.headers.get('X-API-Token') != API_TOKEN:
+        return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
+
+    data = request.get_json(silent=True) or {}
+    recipient = data.get('to')
+    subject = data.get('subject')
+    body = data.get('body')
+
+    if isinstance(recipient, str):
+        recipient = [recipient]
+    if not recipient or not isinstance(recipient, list) or len(recipient) > 10:
+        return jsonify({'status': 'error', 'message': "'to' must be a list of 1-10 addresses"}), 400
+    if not subject or not body:
+        return jsonify({'status': 'error', 'message': 'subject and body are required'}), 400
+
+    password = email_password()
+    if not password:
+        return jsonify({'status': 'error', 'message': 'Server email not configured'}), 500
+
+    msg = EmailMessage()
+    msg['From'] = EMAIL_USER
+    msg['To'] = ', '.join(recipient)
+    msg['Subject'] = subject
+    msg.set_content(body)
+
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=15) as smtp:
+            smtp.login(EMAIL_USER, password)
+            smtp.send_message(msg)
+    except smtplib.SMTPAuthenticationError:
+        return jsonify({'status': 'error', 'message': 'Email login failed'}), 500
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+    return jsonify({'status': 'success'})
 
 # -----------------------------
 # RUN SERVER (Render)
