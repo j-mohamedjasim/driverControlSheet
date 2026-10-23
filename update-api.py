@@ -430,14 +430,6 @@ def send_email():
 
     return jsonify({'status': 'success'})
 
-@app.route('/test-email')
-def test_email():
-
-    return {
-        "EMAIL_USER": str(bool(EMAIL_USER)),
-        "EMAIL_PASSWORD": str(bool(os.getenv("EMAIL_PASSWORD")))
-    }
-
 # -----------------------------
 # RUN SERVER (Render)
 # -----------------------------
