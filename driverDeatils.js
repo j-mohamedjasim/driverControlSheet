@@ -224,7 +224,7 @@ async function showDriverInfo() {
     driverName.innerHTML = "Driver 👨‍💼 : " + result.name;
     pScanner.innerHTML = "Scanner: 📱 " + result.scanner;
     pPrinter.innerHTML = "Printer 🖨 : " + result.printer;
-    pSpare.innerHTML = "Spare Battery 🔋 : " + result.sparebattery;
+    pSpare.innerHTML = "Battery 🔋 : " + result.sparebattery;
     pCount.innerHTML = "Count " + countHand + " : " + result.count;
 
     outbriefLink.href = `outbrief.html?route=${rNumber}&loc=${loca}&driver=${result.name}`;
