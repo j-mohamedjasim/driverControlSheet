@@ -298,7 +298,7 @@ async function getDriverInput() {
         if (result.rdna === 'Yes') {
             document.getElementById('radio-button-rdna-yes').checked = true;
         } else if (result.rdna === 'No') {
-            documnet.getElementById('radio-button-rdna-no').checked = true;
+            document.getElementById('radio-button-rdna-no').checked = true;
         }
 
         if (result.timecards === 'Yes') {
@@ -306,7 +306,7 @@ async function getDriverInput() {
         } else if (result.timecards === 'No') {
             document.getElementById('radio-button-time-no').checked = true;
         }
-        if (loca === 'BBSA' || loca === 'LCYT8') {
+        if (loca === 'LCYT8') {
             dgChecks = true;
             document.getElementById('h1-header-for-dg-show').style.display = 'flex';
             document.getElementById('h1-header-for-dg-show').innerHTML = 'RDNA, Timecard and DG';
@@ -377,14 +377,25 @@ const submitChangesCheck = async () => {
     const dgNo = document.getElementById("radio-button-dg-no");
     const dgDetails = document.getElementById("dgDetails").value;
 
-    if (!rdnaYes.checked && !rdnaNo.checked || !timeYes.checked && !timeNo.checked) {
-        alert("RDNA, Timecard, and DG status must be selected before submitting.")
+    if (!rdnaYes.checked && !rdnaNo.checked) {
+        alert("RDNA status must be selected before submitting.")
+        rdnaYes.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        rdnaYes.focus();
+        return;
+    }
+
+    if (!timeYes.checked && !timeNo.checked) {
+        alert("Timecard status must be selected before submitting.")
+        timeYes.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        timeYes.focus();
         return;
     }
 
     if (dgChecks) {
         if (!dgYes.checked && !dgNo.checked) {
             alert("DG status must be selected before submitting.")
+            dgYes.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            dgYes.focus();
             return;
         }
     }
