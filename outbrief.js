@@ -539,6 +539,24 @@ document.getElementById("captureBtn").onclick = () => {
     );
 };
 
+document.querySelector(".circle-btn").addEventListener("click", () => {
+    fetch("https://drivercontrolsheet.onrender.com/delete", {
+        method: "POST"
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert("All records deleted successfully!");
+        } else {
+            alert("Delete failed.");
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert("An error occurred.");
+    });
+});
+
 document.getElementById("uploadBtn").onclick = () => {
     if (!window.capturedBlob) {
         alert("Please capture a photo first.");
@@ -559,7 +577,7 @@ document.getElementById("uploadBtn").onclick = () => {
     .then(res => res.json())
     .then(data => {
         console.log("Uploaded:", data);
-        alert("Photo uploaded successfully!");
+        alert("Deleted Successfully!");
         photoUpload = true;
     })
     .catch(err => console.error(err));

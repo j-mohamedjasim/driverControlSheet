@@ -342,6 +342,31 @@ def get_photo():
 
     return Response(image_bytes, mimetype="image/jpeg")
 
+@app.route("/delete", methods=["POST"])
+def delete():
+    conn = get_db()
+    cur = conn.cursor()
+
+    mySql = "DELETE FROM driver_records WHERE date <> %s"
+
+    tdate = todayDate()
+
+    try:
+        cur.execute(mySql, (tdate,))
+
+        cur.execute("DELETE FROM cebs WHERE due_date <%s",(tdate,)) #this will delete all the past due_date.
+        conn.commit()
+        conn.close()
+
+        return jsonify({"success": True})
+        
+    except Exception as e:
+        conn.rollback()
+        return jsonify({"success": False, "error": str(e)}), 500
+    finally:
+        cur.close()
+        conn.close()
+
 #--------------------------------------------
 #Security checks before the driver departs
 #--------------------------------------------
