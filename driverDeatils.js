@@ -35,7 +35,7 @@ const warningMessageToShow = () => {
     const warningh1 = document.getElementById("warning-h1").innerHTML = "⚠️ Important Message";
     const warningMessage = document.getElementById("warning-message");
 
-    let bbsa = "We mainly concentrate on batteries so if the battery information is incorrect below, please contact outbrief. <br><br>Mohamed is not in this week, please contact office on 02033365050 for any collection queries. <br><br>If you cannot find your information below, please contact outbrief";
+    let bbsa = "We mainly concentrate on batteries so if the battery information is incorrect below, please contact outbrief. <br><br>If you cannot find your information below, please contact outbrief";
 
     if (loca === "BBSA") {
         warningMessage.innerHTML = bbsa;
